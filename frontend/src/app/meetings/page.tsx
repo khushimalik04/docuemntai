@@ -13,6 +13,7 @@ import { EditMeetingModal } from "@/components/meetings/EditMeetingModal";
 import { DeleteMeetingDialog } from "@/components/meetings/DeleteMeetingDialog";
 import { NewMeetingModal } from "@/components/meetings/NewMeetingModal";
 import { listMeetings, listParticipants } from "@/lib/api";
+import { groupByDateHeading } from "@/lib/format";
 import type { MeetingListItem, Participant } from "@/lib/types";
 
 const DEFAULT_FILTERS: MeetingFiltersState = {
@@ -36,7 +37,9 @@ export default function MeetingsPage() {
   const [newMeetingOpen, setNewMeetingOpen] = useState(false);
 
   useEffect(() => {
-    listParticipants().then(setParticipants).catch(() => {});
+    listParticipants()
+      .then(setParticipants)
+      .catch(() => {});
   }, []);
 
   // Debounce the free-text title search ~300ms.
@@ -64,7 +67,13 @@ export default function MeetingsPage() {
     } finally {
       setLoading(false);
     }
-  }, [debouncedQ, filters.participantId, filters.dateFrom, filters.dateTo, filters.sort]);
+  }, [
+    debouncedQ,
+    filters.participantId,
+    filters.dateFrom,
+    filters.dateTo,
+    filters.sort,
+  ]);
 
   useEffect(() => {
     // Fetch-on-mount / fetch-on-filter-change: load() updates loading/error/
@@ -74,7 +83,10 @@ export default function MeetingsPage() {
   }, [load]);
 
   const hasActiveFilters =
-    !!debouncedQ || !!filters.participantId || !!filters.dateFrom || !!filters.dateTo;
+    !!debouncedQ ||
+    !!filters.participantId ||
+    !!filters.dateFrom ||
+    !!filters.dateTo;
 
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-5 px-4 py-6 sm:px-8">
@@ -102,14 +114,21 @@ export default function MeetingsPage() {
           onNewMeeting={() => setNewMeetingOpen(true)}
         />
       ) : (
-        <div className="space-y-3">
-          {meetings.map((m) => (
-            <MeetingRow
-              key={m.id}
-              meeting={m}
-              onEdit={setEditing}
-              onDelete={setDeleting}
-            />
+        <div className="space-y-6">
+          {groupByDateHeading(meetings, (m) => m.date).map((group) => (
+            <div key={group.heading} className="space-y-3">
+              <h2 className="px-1 text-xs font-semibold uppercase tracking-wide text-muted">
+                {group.heading}
+              </h2>
+              {group.items.map((m) => (
+                <MeetingRow
+                  key={m.id}
+                  meeting={m}
+                  onEdit={setEditing}
+                  onDelete={setDeleting}
+                />
+              ))}
+            </div>
           ))}
         </div>
       )}
@@ -126,8 +145,8 @@ export default function MeetingsPage() {
                     title: updated.title,
                     participants: updated.participants,
                   }
-                : m
-            )
+                : m,
+            ),
           );
         }}
       />
@@ -135,7 +154,9 @@ export default function MeetingsPage() {
       <DeleteMeetingDialog
         meeting={deleting}
         onClose={() => setDeleting(null)}
-        onDeleted={(id) => setMeetings((prev) => prev.filter((m) => m.id !== id))}
+        onDeleted={(id) =>
+          setMeetings((prev) => prev.filter((m) => m.id !== id))
+        }
       />
 
       <NewMeetingModal
@@ -170,7 +191,13 @@ function EmptyState({
   );
 }
 
-function ErrorState({ message, onRetry }: { message: string; onRetry: () => void }) {
+function ErrorState({
+  message,
+  onRetry,
+}: {
+  message: string;
+  onRetry: () => void;
+}) {
   return (
     <div className="flex flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-red-200 bg-red-50/50 py-16 text-center">
       <AlertTriangle className="text-red-500" size={28} />

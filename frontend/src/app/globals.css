@@ -17,6 +17,15 @@
   --color-brand-700: #5a30c4;
   --color-brand-800: #4a279e;
   --color-brand-900: #3c227d;
+
+  /* Dark sidebar theme, styled after the Fireflies.ai workspace nav */
+  --sidebar-from: #241245;
+  --sidebar-to: #120a26;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-fg: #f1edff;
+  --sidebar-fg-muted: #a79bd1;
+  --sidebar-active-bg: rgba(255, 255, 255, 0.08);
+  --sidebar-accent: #b28dff;
 }
 
 @theme inline {

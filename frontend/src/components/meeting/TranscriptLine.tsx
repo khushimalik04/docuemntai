@@ -2,7 +2,7 @@
 
 import { forwardRef } from "react";
 import { Avatar } from "@/components/ui/Avatar";
-import { formatTime } from "@/lib/format";
+import { colorForName, formatTime } from "@/lib/format";
 import type { Segment } from "@/lib/types";
 
 function highlight(text: string, query: string) {
@@ -13,7 +13,7 @@ function highlight(text: string, query: string) {
       <mark key={i}>{part}</mark>
     ) : (
       <span key={i}>{part}</span>
-    )
+    ),
   );
 }
 
@@ -30,7 +30,10 @@ export const TranscriptLine = forwardRef<
     isCurrentMatch: boolean;
     onSeek: (seconds: number) => void;
   }
->(function TranscriptLine({ segment, isActive, query, isCurrentMatch, onSeek }, ref) {
+>(function TranscriptLine(
+  { segment, isActive, query, isCurrentMatch, onSeek },
+  ref,
+) {
   return (
     <div
       ref={ref}
@@ -52,7 +55,12 @@ export const TranscriptLine = forwardRef<
       <Avatar name={segment.speaker_label} size="sm" />
       <div className="min-w-0 flex-1">
         <div className="flex items-baseline gap-2">
-          <span className="text-sm font-semibold">{segment.speaker_label}</span>
+          <span
+            className="text-sm font-semibold"
+            style={{ color: colorForName(segment.speaker_label).fg }}
+          >
+            {segment.speaker_label}
+          </span>
           <span className="text-xs tabular-nums text-muted">
             {formatTime(segment.start_sec)}
           </span>

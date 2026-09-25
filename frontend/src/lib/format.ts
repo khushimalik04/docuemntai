@@ -48,6 +48,46 @@ export function formatDateOnly(iso: string): string {
   });
 }
 
+/** Groups items into date-based sections (Today / Yesterday / "Thu, Sep 18"),
+ * mirroring the date-header grouping used in Fireflies' meeting list.
+ * Preserves the incoming order; only consecutive/all same-day items are merged. */
+export function groupByDateHeading<T>(
+  items: T[],
+  getIso: (item: T) => string,
+): { heading: string; items: T[] }[] {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const yesterday = new Date(today);
+  yesterday.setDate(yesterday.getDate() - 1);
+
+  const groups = new Map<string, { heading: string; items: T[] }>();
+  for (const item of items) {
+    const d = new Date(getIso(item));
+    const dayStart = new Date(d);
+    dayStart.setHours(0, 0, 0, 0);
+    const key = dayStart.toISOString();
+
+    let heading: string;
+    if (dayStart.getTime() === today.getTime()) heading = "Today";
+    else if (dayStart.getTime() === yesterday.getTime()) heading = "Yesterday";
+    else
+      heading = dayStart.toLocaleDateString(undefined, {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+        year:
+          dayStart.getFullYear() !== today.getFullYear()
+            ? "numeric"
+            : undefined,
+      });
+
+    const group = groups.get(key);
+    if (group) group.items.push(item);
+    else groups.set(key, { heading, items: [item] });
+  }
+  return Array.from(groups.values());
+}
+
 /** Initials from a display name, e.g. "Priya Sharma" -> "PS". */
 export function initials(name: string): string {
   const parts = name.trim().split(/\s+/).filter(Boolean);

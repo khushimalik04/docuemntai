@@ -7,7 +7,6 @@ import {
   Home,
   Plug,
   Radio,
-  Search,
   Settings,
   Upload,
   Users,
@@ -16,7 +15,6 @@ import { Avatar } from "@/components/ui/Avatar";
 
 const NAV_ITEMS = [
   { href: "/meetings", label: "Meetings", icon: Home },
-  { href: "/search", label: "Search", icon: Search },
   { href: "/integrations", label: "Integrations", icon: Plug },
   { href: "/live-notetaker", label: "Live Notetaker", icon: Radio },
   { href: "/team", label: "Team", icon: Users },
@@ -38,6 +36,43 @@ function LogoMark() {
   );
 }
 
+function NavLink({
+  href,
+  label,
+  icon: Icon,
+  isActive,
+  onClick,
+}: {
+  href: string;
+  label: string;
+  icon: typeof Home;
+  isActive: boolean;
+  onClick?: () => void;
+}) {
+  return (
+    <Link
+      href={href}
+      onClick={onClick}
+      className={`group relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+        isActive
+          ? "text-white"
+          : "text-[color:var(--sidebar-fg-muted)] hover:bg-white/5 hover:text-[color:var(--sidebar-fg)]"
+      }`}
+      style={isActive ? { background: "var(--sidebar-active-bg)" } : undefined}
+    >
+      <span
+        className="absolute inset-y-1.5 left-0 w-0.5 rounded-full transition-opacity"
+        style={{
+          background: "var(--sidebar-accent)",
+          opacity: isActive ? 1 : 0,
+        }}
+      />
+      <Icon size={18} />
+      {label}
+    </Link>
+  );
+}
+
 export function Sidebar({
   onOpenNewMeeting,
   onNavigate,
@@ -48,10 +83,17 @@ export function Sidebar({
   const pathname = usePathname();
 
   return (
-    <aside className="flex h-full w-60 shrink-0 flex-col border-r border-border bg-surface">
+    <aside
+      className="flex h-full w-60 shrink-0 flex-col border-r"
+      style={{
+        background:
+          "linear-gradient(180deg, var(--sidebar-from), var(--sidebar-to))",
+        borderColor: "var(--sidebar-border)",
+      }}
+    >
       <div className="flex items-center gap-2 px-5 py-5">
         <LogoMark />
-        <span className="text-sm font-semibold tracking-tight">
+        <span className="text-sm font-semibold tracking-tight text-white">
           Fireflies Clone
         </span>
       </div>
@@ -62,51 +104,40 @@ export function Sidebar({
             onOpenNewMeeting();
             onNavigate?.();
           }}
-          className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-muted transition-colors hover:bg-brand-50 hover:text-brand-700"
+          className="mb-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-[color:var(--sidebar-fg-muted)] transition-colors hover:bg-white/5 hover:text-[color:var(--sidebar-fg)]"
         >
           <Upload size={18} />
           Uploads
         </button>
 
-        {NAV_ITEMS.map((item) => {
-          const isActive = pathname?.startsWith(item.href);
-          const Icon = item.icon;
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={onNavigate}
-              className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-                isActive
-                  ? "bg-brand-100 text-brand-700"
-                  : "text-muted hover:bg-brand-50 hover:text-brand-700"
-              }`}
-            >
-              <Icon size={18} />
-              {item.label}
-            </Link>
-          );
-        })}
+        {NAV_ITEMS.map((item) => (
+          <NavLink
+            key={item.href}
+            href={item.href}
+            label={item.label}
+            icon={item.icon}
+            isActive={!!pathname?.startsWith(item.href)}
+            onClick={onNavigate}
+          />
+        ))}
 
         <div className="mt-auto" />
 
-        <Link
+        <NavLink
           href="/settings"
+          label="Settings"
+          icon={Settings}
+          isActive={!!pathname?.startsWith("/settings")}
           onClick={onNavigate}
-          className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-            pathname?.startsWith("/settings")
-              ? "bg-brand-100 text-brand-700"
-              : "text-muted hover:bg-brand-50 hover:text-brand-700"
-          }`}
-        >
-          <Settings size={18} />
-          Settings
-        </Link>
+        />
       </nav>
 
-      <div className="flex items-center gap-2 border-t border-border px-4 py-3">
+      <div
+        className="flex items-center gap-2 border-t px-4 py-3"
+        style={{ borderColor: "var(--sidebar-border)" }}
+      >
         <Avatar name="Demo User" size="sm" />
-        <span className="text-sm font-medium">Demo User</span>
+        <span className="text-sm font-medium text-white">Demo User</span>
       </div>
     </aside>
   );
