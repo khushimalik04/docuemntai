@@ -6,6 +6,7 @@ Pure functions only -- no DB access here. Each parser returns a list of dicts:
 import json
 import re
 from dataclasses import dataclass
+from typing import Optional, List, Tuple, Dict, Any
 
 WORDS_PER_MINUTE = 150
 
@@ -21,7 +22,7 @@ VTT_TIME_LINE = re.compile(
 @dataclass
 class RawUtterance:
     speaker: str
-    start: float | None  # None means "not given, synthesize"
+    start: Optional[float]  # None means "not given, synthesize"
     text: str
 
 
@@ -39,13 +40,13 @@ def _estimate_duration(text: str) -> float:
     return max(words / WORDS_PER_MINUTE * 60.0, 1.0)
 
 
-def _fill_start_end(raw: list[RawUtterance]) -> list[dict]:
+def _fill_start_end(raw: List[RawUtterance]) -> List[Dict[str, Any]]:
     """Assign start/end seconds: explicit starts are kept, missing ones are
     synthesized back-to-back at WORDS_PER_MINUTE. end_sec of a segment is the
     next segment's start_sec; the last segment's end is start + estimated duration.
     """
-    starts: list[float] = []
-    durations: list[float] = []
+    starts: List[float] = []
+    durations: List[float] = []
     running_time = 0.0
     for u in raw:
         start_sec = u.start if u.start is not None else running_time
@@ -61,15 +62,15 @@ def _fill_start_end(raw: list[RawUtterance]) -> list[dict]:
     return segments
 
 
-def parse_txt(content: str) -> list[dict]:
-    raw: list[RawUtterance] = []
+def parse_txt(content: str) -> List[Dict[str, Any]]:
+    raw: List[RawUtterance] = []
     for line in content.splitlines():
         line = line.strip()
         if not line:
             continue
 
         rest = line
-        timestamp: float | None = None
+        timestamp: Optional[float] = None
         m = TS_BRACKET.match(rest)
         if m:
             timestamp = _ts_to_seconds(m.group(1))
@@ -93,7 +94,7 @@ def parse_txt(content: str) -> list[dict]:
     return _fill_start_end(raw)
 
 
-def parse_vtt(content: str) -> list[dict]:
+def parse_vtt(content: str) -> List[Dict[str, Any]]:
     lines = content.splitlines()
     segments = []
     i = 0
@@ -133,7 +134,7 @@ def _vtt_timestamp_to_seconds(match: re.Match, group_offset: int) -> float:
     return hours * 3600 + minutes * 60 + seconds + millis / 1000.0
 
 
-def _split_vtt_speaker(cue_text: str) -> tuple[str, str]:
+def _split_vtt_speaker(cue_text: str) -> Tuple[str, str]:
     tag_match = VTT_TAG_SPEAKER.match(cue_text)
     if tag_match:
         return tag_match.group(1).strip(), tag_match.group(2).strip()
@@ -143,7 +144,7 @@ def _split_vtt_speaker(cue_text: str) -> tuple[str, str]:
     return "Speaker 1", cue_text
 
 
-def parse_json_transcript(content: str) -> list[dict]:
+def parse_json_transcript(content: str) -> List[Dict[str, Any]]:
     data = json.loads(content)
     items = data["segments"] if isinstance(data, dict) else data
 
@@ -170,7 +171,7 @@ def parse_json_transcript(content: str) -> list[dict]:
     return _fill_start_end(raw)
 
 
-def parse_transcript(filename: str, content: str) -> list[dict]:
+def parse_transcript(filename: str, content: str) -> List[Dict[str, Any]]:
     """Dispatch by extension. Raises ValueError for unsupported extensions."""
     lower = filename.lower()
     if lower.endswith(".txt"):

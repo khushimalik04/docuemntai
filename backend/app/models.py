@@ -1,5 +1,6 @@
 """SQLAlchemy 2.0 typed models, matching the tables in CONTRACT.md."""
 from datetime import datetime
+from typing import Optional, Union
 
 from sqlalchemy import ForeignKey, UniqueConstraint, Index
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -23,7 +24,7 @@ class Meeting(Base):
     segments: Mapped[list["TranscriptSegment"]] = relationship(
         back_populates="meeting", cascade="all, delete-orphan", order_by="TranscriptSegment.idx"
     )
-    summary: Mapped["Summary | None"] = relationship(
+    summary: Mapped[Optional["Summary"]] = relationship(
         back_populates="meeting", cascade="all, delete-orphan", uselist=False
     )
     chapters: Mapped[list["Chapter"]] = relationship(
@@ -40,7 +41,7 @@ class Participant(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str]
-    email: Mapped[str | None] = mapped_column(default=None)
+    email: Mapped[Optional[str]] = mapped_column(default=None)
 
     meetings: Mapped[list["Meeting"]] = relationship(
         secondary="meeting_participants", back_populates="participants"
@@ -66,7 +67,7 @@ class TranscriptSegment(Base):
     meeting_id: Mapped[int] = mapped_column(ForeignKey("meetings.id", ondelete="CASCADE"))
     idx: Mapped[int]
     speaker_label: Mapped[str]
-    speaker_participant_id: Mapped[int | None] = mapped_column(
+    speaker_participant_id: Mapped[Optional[int]] = mapped_column(
         ForeignKey("participants.id"), default=None
     )
     start_sec: Mapped[float]
@@ -107,14 +108,14 @@ class ActionItem(Base):
     meeting_id: Mapped[int] = mapped_column(ForeignKey("meetings.id", ondelete="CASCADE"))
     text: Mapped[str]
     completed: Mapped[bool] = mapped_column(default=False)
-    assignee_participant_id: Mapped[int | None] = mapped_column(
+    assignee_participant_id: Mapped[Optional[int]] = mapped_column(
         ForeignKey("participants.id"), default=None
     )
-    segment_id: Mapped[int | None] = mapped_column(
+    segment_id: Mapped[Optional[int]] = mapped_column(
         ForeignKey("transcript_segments.id", ondelete="SET NULL"), default=None
     )
     created_at: Mapped[datetime] = mapped_column(default=datetime.utcnow)
 
     meeting: Mapped["Meeting"] = relationship(back_populates="action_items")
-    assignee: Mapped["Participant | None"] = relationship()
-    segment: Mapped["TranscriptSegment | None"] = relationship()
+    assignee: Mapped[Optional["Participant"]] = relationship()
+    segment: Mapped[Optional["TranscriptSegment"]] = relationship()

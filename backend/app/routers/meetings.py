@@ -1,5 +1,6 @@
 """Meeting CRUD, upload, transcript, and summarize endpoints."""
 from datetime import date as date_type, datetime
+from typing import Optional, List
 
 from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
 from sqlalchemy.orm import Session, selectinload
@@ -36,18 +37,18 @@ def health():
     return {"status": "ok"}
 
 
-@router.get("/participants", response_model=list[ParticipantOut])
+@router.get("/participants", response_model=List[ParticipantOut])
 def list_participants(db: Session = Depends(get_db)):
     # Only people who are in at least one meeting, so the filter never offers empty results.
     return db.query(Participant).filter(Participant.meetings.any()).order_by(Participant.name).all()
 
 
-@router.get("/meetings", response_model=list[MeetingListItemOut])
+@router.get("/meetings", response_model=List[MeetingListItemOut])
 def list_meetings(
-    q: str | None = None,
-    participant_id: int | None = None,
-    date_from: date_type | None = None,
-    date_to: date_type | None = None,
+    q: Optional[str] = None,
+    participant_id: Optional[int] = None,
+    date_from: Optional[date_type] = None,
+    date_to: Optional[date_type] = None,
     sort: str = "recent",
     db: Session = Depends(get_db),
 ):
@@ -86,9 +87,9 @@ def create_meeting(payload: MeetingCreateIn, db: Session = Depends(get_db)):
 @router.post("/meetings/upload", response_model=MeetingDetailOut, status_code=201)
 async def upload_meeting(
     file: UploadFile = File(...),
-    title: str | None = Form(None),
-    date: str | None = Form(None),
-    participants: str | None = Form(None),
+    title: Optional[str] = Form(None),
+    date: Optional[str] = Form(None),
+    participants: Optional[str] = Form(None),
     db: Session = Depends(get_db),
 ):
     filename = file.filename or ""
@@ -162,7 +163,7 @@ def delete_meeting(meeting_id: int, db: Session = Depends(get_db)):
     return None
 
 
-@router.get("/meetings/{meeting_id}/transcript", response_model=list[SegmentOut])
+@router.get("/meetings/{meeting_id}/transcript", response_model=List[SegmentOut])
 def get_transcript(meeting_id: int, db: Session = Depends(get_db)):
     meeting = db.query(Meeting).filter(Meeting.id == meeting_id).first()
     if not meeting:

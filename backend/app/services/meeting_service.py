@@ -1,6 +1,7 @@
 """Shared logic for building/reading meetings. Routers stay thin and call into here."""
 import json
 from datetime import datetime
+from typing import Optional, List, Dict, Any
 
 from sqlalchemy.orm import Session
 
@@ -16,7 +17,7 @@ from app.schemas import (
 from app.services import summarizer
 
 
-def get_or_create_participant(db: Session, name: str, email: str | None = None) -> Participant:
+def get_or_create_participant(db: Session, name: str, email: Optional[str] = None) -> Participant:
     """Dedup rule from the contract: match by email if given, else by exact name."""
     name = name.strip()
     if email:
@@ -33,7 +34,7 @@ def get_or_create_participant(db: Session, name: str, email: str | None = None) 
     return participant
 
 
-def find_segment_containing(segments: list[TranscriptSegment], time_sec: float) -> TranscriptSegment | None:
+def find_segment_containing(segments: List[TranscriptSegment], time_sec: float) -> Optional[TranscriptSegment]:
     """Used for LLM/heuristic action items, which give a moment in time."""
     for seg in segments:
         if seg.start_sec <= time_sec < seg.end_sec:
@@ -43,7 +44,7 @@ def find_segment_containing(segments: list[TranscriptSegment], time_sec: float) 
     return None
 
 
-def find_segment_by_exact_start(segments: list[TranscriptSegment], start_sec: float) -> TranscriptSegment | None:
+def find_segment_by_exact_start(segments: List[TranscriptSegment], start_sec: float) -> Optional[TranscriptSegment]:
     """Used for seed data, which links action items by an exact segment start."""
     for seg in segments:
         if seg.start_sec == start_sec:
@@ -55,12 +56,12 @@ def build_meeting(
     db: Session,
     *,
     title: str,
-    date: datetime | None,
+    date: Optional[datetime],
     source: str,
-    participant_names: list[str],
-    parsed_segments: list[dict],
-    api_key: str | None,
-    model: str | None,
+    participant_names: List[str],
+    parsed_segments: List[Dict[str, Any]],
+    api_key: Optional[str],
+    model: Optional[str],
 ) -> Meeting:
     """Create a meeting (form or upload) from parsed segments and run the summarizer."""
     if not parsed_segments:
@@ -73,7 +74,7 @@ def build_meeting(
 
     speaker_names = [s["speaker"] for s in parsed_segments]
     all_names = list(dict.fromkeys(n.strip() for n in list(participant_names) + speaker_names if n.strip()))  # unique, order preserved
-    speaker_map: dict[str, Participant] = {}
+    speaker_map: Dict[str, Participant] = {}
     for name in all_names:
         participant = get_or_create_participant(db, name)
         meeting.participants.append(participant)
@@ -91,7 +92,7 @@ def build_meeting(
     return meeting
 
 
-def resummarize_meeting(db: Session, meeting: Meeting, api_key: str | None, model: str | None) -> Meeting:
+def resummarize_meeting(db: Session, meeting: Meeting, api_key: Optional[str], model: Optional[str]) -> Meeting:
     """POST /meetings/{id}/summarize: regenerate summary + chapters always;
     only add extracted action items if the meeting currently has none."""
     segments = sorted(meeting.segments, key=lambda s: s.idx)
@@ -112,15 +113,15 @@ def resummarize_meeting(db: Session, meeting: Meeting, api_key: str | None, mode
     return meeting
 
 
-def replace_participants(db: Session, meeting: Meeting, names: list[str]) -> None:
+def replace_participants(db: Session, meeting: Meeting, names: List[str]) -> None:
     meeting.participants.clear()
     for name in dict.fromkeys(n.strip() for n in names if n.strip()):
         meeting.participants.append(get_or_create_participant(db, name))
 
 
 def _add_segments(
-    db: Session, meeting: Meeting, parsed_segments: list[dict], speaker_map: dict[str, Participant]
-) -> list[TranscriptSegment]:
+    db: Session, meeting: Meeting, parsed_segments: List[Dict[str, Any]], speaker_map: Dict[str, Participant]
+) -> List[TranscriptSegment]:
     segments = []
     for idx, seg in enumerate(parsed_segments):
         participant = speaker_map.get(seg["speaker"])
@@ -138,7 +139,7 @@ def _add_segments(
     return segments
 
 
-def _apply_summary_and_chapters(db: Session, meeting: Meeting, summary_data: dict) -> None:
+def _apply_summary_and_chapters(db: Session, meeting: Meeting, summary_data: Dict[str, Any]) -> None:
     if meeting.summary:
         db.delete(meeting.summary)
         db.flush()
@@ -161,9 +162,9 @@ def _apply_summary_and_chapters(db: Session, meeting: Meeting, summary_data: dic
 def _apply_action_items(
     db: Session,
     meeting: Meeting,
-    segments: list[TranscriptSegment],
-    action_items_data: list[dict],
-    speaker_map: dict[str, Participant],
+    segments: List[TranscriptSegment],
+    action_items_data: List[Dict[str, Any]],
+    speaker_map: Dict[str, Participant],
 ) -> None:
     for item in action_items_data:
         assignee = None

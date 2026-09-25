@@ -93,7 +93,7 @@ export function Sidebar({
       <div className="flex items-center gap-2 px-5 py-5">
         <LogoMark />
         <span className="text-sm font-semibold tracking-tight text-white">
-          Fireflies Clone
+          MeetMind
         </span>
       </div>
 

@@ -4,6 +4,7 @@ the meetings table is empty. Also runnable standalone: `python -m app.seed.seed`
 import json
 from datetime import datetime
 from pathlib import Path
+from typing import Optional
 
 from sqlalchemy.orm import Session
 
@@ -80,7 +81,7 @@ def load_one_meeting(db: Session, data: dict) -> Meeting:
     return meeting
 
 
-def seed_if_empty(db: Session, data_dir: Path | None = None) -> int:
+def seed_if_empty(db: Session, data_dir: Optional[Path] = None) -> int:
     if db.query(Meeting).count() > 0:
         return 0
 

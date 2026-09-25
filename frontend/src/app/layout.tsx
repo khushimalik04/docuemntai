@@ -10,7 +10,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Fireflies Clone",
+  title: "MeetMind",
   description:
     "A meeting notes and transcription workspace: record, transcribe, summarize and search your meetings.",
 };
