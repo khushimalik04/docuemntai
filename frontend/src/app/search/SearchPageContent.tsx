@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState, type FormEvent } from "react";
-import { AlertTriangle, Search as SearchIcon } from "lucide-react";
+import { AlertTriangle, ArrowLeft, Search as SearchIcon } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { formatDateOnly, formatTime } from "@/lib/format";
@@ -68,6 +68,14 @@ export function SearchPageContent() {
 
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-5 px-4 py-6 sm:px-8">
+      <Link
+        href="/meetings"
+        className="inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-foreground"
+      >
+        <ArrowLeft size={16} />
+        Back to meetings
+      </Link>
+
       <h1 className="text-xl font-semibold">Search</h1>
 
       <form onSubmit={handleSubmit} className="flex gap-2">

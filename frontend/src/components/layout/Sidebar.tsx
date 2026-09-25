@@ -8,7 +8,6 @@ import {
   Plug,
   Radio,
   Settings,
-  Upload,
   Users,
 } from "lucide-react";
 import { Avatar } from "@/components/ui/Avatar";
@@ -99,17 +98,6 @@ export function Sidebar({
       </div>
 
       <nav className="flex flex-1 flex-col gap-0.5 px-3">
-        <button
-          onClick={() => {
-            onOpenNewMeeting();
-            onNavigate?.();
-          }}
-          className="mb-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-[color:var(--sidebar-fg-muted)] transition-colors hover:bg-white/5 hover:text-[color:var(--sidebar-fg)]"
-        >
-          <Upload size={18} />
-          Uploads
-        </button>
-
         {NAV_ITEMS.map((item) => (
           <NavLink
             key={item.href}
