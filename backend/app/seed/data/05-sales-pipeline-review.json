@@ -1,0 +1,474 @@
+{
+  "title": "Sales Pipeline Review",
+  "date": "2026-09-18T11:00:00",
+  "participants": [
+    {
+      "name": "Sarah Mitchell",
+      "email": "sarah.mitchell@acmeanalytics.io"
+    },
+    {
+      "name": "Tom Becker",
+      "email": "tom.becker@acmeanalytics.io"
+    },
+    {
+      "name": "Aisha Rahman",
+      "email": "aisha.rahman@acmeanalytics.io"
+    }
+  ],
+  "segments": [
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 0.0,
+      "end": 10.4,
+      "text": "Alright, let's go through the pipeline. We're three weeks out from end of quarter so I want to be sharp about what's actually going to close."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 11.0,
+      "end": 14.2,
+      "text": "Sounds good, where do we stand against target?"
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 15.0,
+      "end": 27.0,
+      "text": "Target's four hundred and eighty thousand in new ARR for the quarter, we're sitting at three ten committed, so we need about a hundred seventy more from what's still open."
+    },
+    {
+      "speaker": "Aisha Rahman",
+      "start": 28.1,
+      "end": 31.3,
+      "text": "That's from new logos only, right, not expansion?"
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 31.8,
+      "end": 36.2,
+      "text": "Right, expansion revenue is tracked separately, this is just new business."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 37.1,
+      "end": 40.3,
+      "text": "Walk me through the biggest deals still open."
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 41.6,
+      "end": 50.4,
+      "text": "Top one is Fenwick Logistics, forty two thousand annual, they're in final legal review, procurement said end of next week most likely."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 51.1,
+      "end": 52.3,
+      "text": "Any risk there?"
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 52.6,
+      "end": 61.8,
+      "text": "Some, their legal team wants a change to our data processing addendum, nothing crazy, but it's sitting with our legal counsel right now."
+    },
+    {
+      "speaker": "Aisha Rahman",
+      "start": 62.8,
+      "end": 67.2,
+      "text": "I can ping legal today if that helps move it along."
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 67.8,
+      "end": 71.4,
+      "text": "That would help, it's been sitting for four days."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 72.8,
+      "end": 73.6,
+      "text": "Next deal?"
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 74.1,
+      "end": 84.1,
+      "text": "Northstar Media, twenty eight thousand annual, they had a great demo two weeks ago but went quiet since. I followed up twice, no response yet."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 84.9,
+      "end": 88.1,
+      "text": "How quiet, like ghosting quiet or just slow?"
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 88.5,
+      "end": 96.5,
+      "text": "Hard to say, could be internal budget approval taking longer than expected, which happens a lot this time of year."
+    },
+    {
+      "speaker": "Aisha Rahman",
+      "start": 97.1,
+      "end": 107.1,
+      "text": "Do we know who the champion is there? Sometimes a different angle in, like a customer success intro, gets a response when sales outreach doesn't."
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 107.9,
+      "end": 115.1,
+      "text": "Champion is their head of analytics, Diane something, I'd have to check the CRM for her last name."
+    },
+    {
+      "speaker": "Aisha Rahman",
+      "start": 116.2,
+      "end": 126.6,
+      "text": "If you send me her info I can see if there's a warmer way in, maybe through a case study or something relevant to their industry."
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 127.1,
+      "end": 129.1,
+      "text": "I'll send that over today."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 130.0,
+      "end": 130.8,
+      "text": "Third deal?"
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 132.1,
+      "end": 142.9,
+      "text": "Vantage Health, this one's smaller, fifteen thousand annual, but it's basically closed, they signed the order form yesterday, just waiting on their finance team to process payment."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 143.6,
+      "end": 146.4,
+      "text": "So that one's essentially in the bag."
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 146.7,
+      "end": 149.9,
+      "text": "Yes, I'd call that ninety five percent certain."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 150.9,
+      "end": 156.5,
+      "text": "Good. What about the BrightLoop expansion conversation, is that in this pipeline or separate?"
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 157.1,
+      "end": 166.7,
+      "text": "Separate, that's expansion not new logo, but worth mentioning, it's somewhat at risk given the funnel timeout issues we discussed with them last week."
+    },
+    {
+      "speaker": "Aisha Rahman",
+      "start": 168.1,
+      "end": 183.3,
+      "text": "I've been tracking that closely since the discovery call. If the funnel fix lands before Black Friday like planned, I think expansion conversation goes fine. If it slips, that's a real risk to renewal even, not just expansion."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 183.8,
+      "end": 191.8,
+      "text": "Good to keep an eye on. Sarah, anything in early stage worth flagging even if it's not closing this quarter?"
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 192.6,
+      "end": 205.8,
+      "text": "Yeah, a company called Greenway Foods came in through a referral last week, mid size grocery chain, looking for exactly the kind of funnel and cohort tooling we do. Early days but promising."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 206.2,
+      "end": 207.4,
+      "text": "Referral from who?"
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 208.0,
+      "end": 210.8,
+      "text": "Actually from Rachel at BrightLoop, small world."
+    },
+    {
+      "speaker": "Aisha Rahman",
+      "start": 211.6,
+      "end": 220.4,
+      "text": "That's a good sign that BrightLoop is willing to refer us despite the funnel frustration, means the underlying relationship is still solid."
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 221.5,
+      "end": 224.3,
+      "text": "Agreed, I read it that way too."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 224.8,
+      "end": 234.0,
+      "text": "Let's talk numbers. If Fenwick and Vantage both close, plus committed, that gets us to roughly three sixty seven. Still short of target."
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 234.9,
+      "end": 241.3,
+      "text": "Right, we'd need either Northstar to come through, or something currently in early stage to accelerate."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 242.6,
+      "end": 245.4,
+      "text": "What's realistic on Northstar given the silence?"
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 246.1,
+      "end": 254.9,
+      "text": "Honestly maybe fifty fifty at this point. If Aisha's warmer outreach idea works, I'd bump that to sixty or sixty five percent."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 255.2,
+      "end": 262.4,
+      "text": "Okay, let's prioritize that then. Aisha, can you get me Diane's info today so we can move fast?"
+    },
+    {
+      "speaker": "Aisha Rahman",
+      "start": 263.4,
+      "end": 266.2,
+      "text": "Yes, sending it right after this call."
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 266.8,
+      "end": 278.0,
+      "text": "I'll also loop in our marketing team to see if there's a relevant case study in the media or publishing space we can send along with that outreach."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 279.4,
+      "end": 285.0,
+      "text": "Good idea. What else is sitting in the pipeline that I haven't asked about?"
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 285.5,
+      "end": 295.5,
+      "text": "There's a handful of smaller deals under ten thousand each, nothing individually material, but combined maybe another twenty thousand if a few of them land."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 296.3,
+      "end": 301.5,
+      "text": "Let's not lose track of those even if they're small, they add up."
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 301.9,
+      "end": 305.1,
+      "text": "Agreed, I'll keep pushing on those in parallel."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 305.7,
+      "end": 316.1,
+      "text": "What does the pipeline look like beyond this quarter, are we building enough for Q1 or is everything front loaded into closing what we already have?"
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 316.9,
+      "end": 328.9,
+      "text": "Fair question. Early stage count is actually a bit thin right now, Greenway Foods aside, we've had fewer inbound leads the last two weeks compared to earlier in the quarter."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 330.0,
+      "end": 332.8,
+      "text": "Any idea why, seasonal or something specific?"
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 333.3,
+      "end": 347.7,
+      "text": "Probably a mix, a lot of prospects go quiet around this time of year with budget planning season, but I also think our outbound volume dropped because the team's been heads down closing what's already open."
+    },
+    {
+      "speaker": "Aisha Rahman",
+      "start": 348.6,
+      "end": 353.4,
+      "text": "That makes sense given how much attention Fenwick and Northstar have needed."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 354.7,
+      "end": 367.9,
+      "text": "Understandable trade off for this quarter, but let's not let Q1 pipeline dry up completely. What would it take to get outbound volume back up without dropping the ball on what's currently open?"
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 368.6,
+      "end": 380.6,
+      "text": "If I had another rep or even a part time SDR for outbound specifically, that would free up my time to focus purely on closing. Right now I'm doing both."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 380.9,
+      "end": 392.1,
+      "text": "Let me think about that, that's a bigger conversation than pipeline review, but I hear you, let's put a pin in it and talk headcount separately next week."
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 393.1,
+      "end": 395.9,
+      "text": "That works, appreciate you taking it seriously."
+    },
+    {
+      "speaker": "Aisha Rahman",
+      "start": 396.5,
+      "end": 408.9,
+      "text": "In the meantime, I can help surface expansion opportunities from existing accounts, that's somewhat separate from new logo pipeline but it keeps revenue moving while new logo generation ramps back up."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 410.3,
+      "end": 415.5,
+      "text": "Good idea, are there any expansion conversations worth flagging right now besides BrightLoop?"
+    },
+    {
+      "speaker": "Aisha Rahman",
+      "start": 416.0,
+      "end": 428.8,
+      "text": "Actually yes, Meridian Analytics upgraded their event volume significantly over the summer, they're probably outgrowing their current tier. I haven't had the pricing conversation with them yet but it's worth raising soon."
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 429.6,
+      "end": 440.4,
+      "text": "I can help you build that pitch if you want, upgrade conversations usually land better framed around new features they'd unlock rather than just a bigger bill."
+    },
+    {
+      "speaker": "Aisha Rahman",
+      "start": 440.8,
+      "end": 444.8,
+      "text": "That would help a lot, let's grab time this week."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 445.4,
+      "end": 452.2,
+      "text": "Great, let's put that on next week's agenda as well so I can see how it's tracking."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 453.0,
+      "end": 471.4,
+      "text": "Alright, let's recap. Fenwick's blocked on the legal addendum, Aisha's pinging legal today. Northstar needs a warmer outreach angle through Diane, using a case study if we can find one. Vantage is basically closed. Greenway Foods is an early but promising lead from a BrightLoop referral."
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 472.5,
+      "end": 476.9,
+      "text": "That's right. I'll have an updated forecast for you by Friday."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 477.4,
+      "end": 480.2,
+      "text": "Perfect, let's reconvene next week same time."
+    },
+    {
+      "speaker": "Aisha Rahman",
+      "start": 481.1,
+      "end": 482.7,
+      "text": "Sounds good, talk then."
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 484.0,
+      "end": 484.8,
+      "text": "Thanks everyone."
+    }
+  ],
+  "summary": {
+    "overview": "With three weeks left in the quarter, the team reviewed a $480K new-ARR target against $310K committed. Fenwick Logistics ($42K) is close to closing but blocked on a data processing addendum sitting with legal for four days; Aisha will nudge legal today. Vantage Health ($15K) is effectively closed pending payment processing, while Northstar Media ($28K) has gone quiet after a strong demo, prompting a plan to reach their champion, Diane, through a warmer angle such as a relevant case study.\n\nThe team flagged that BrightLoop Retail's expansion conversation (tracked separately from new-logo pipeline) is at risk if the Funnel Builder fix doesn't land before Black Friday. On a more positive note, BrightLoop referred a new early-stage lead, Greenway Foods, seen as a sign the relationship remains solid despite the funnel frustration.\n\nEven with Fenwick and Vantage closing, the team projects landing around $367K, short of target, making Northstar's outreach and a handful of smaller sub-$10K deals important to closing the gap. Tom also flagged thinning Q1 pipeline since outbound has slowed while the team focuses on closing current deals, and will discuss adding outbound capacity separately next week. Aisha will pursue an expansion conversation with Meridian Analytics, who have outgrown their current tier, and Sarah will deliver an updated forecast by Friday.",
+    "keywords": [
+      "sales pipeline",
+      "forecast",
+      "Fenwick Logistics",
+      "Northstar Media",
+      "BrightLoop",
+      "ARR",
+      "expansion"
+    ]
+  },
+  "chapters": [
+    {
+      "title": "Pipeline overview against target",
+      "start": 15.0
+    },
+    {
+      "title": "Fenwick Logistics: legal addendum blocker",
+      "start": 41.6
+    },
+    {
+      "title": "Northstar Media: gone quiet after demo",
+      "start": 74.1
+    },
+    {
+      "title": "Vantage Health, BrightLoop risk, and Greenway referral",
+      "start": 132.1
+    },
+    {
+      "title": "Q1 pipeline and outbound capacity",
+      "start": 305.7
+    },
+    {
+      "title": "Expansion opportunities and forecast recap",
+      "start": 416.0
+    }
+  ],
+  "action_items": [
+    {
+      "text": "Ping legal today to move along the Fenwick Logistics data processing addendum",
+      "assignee": "Aisha Rahman",
+      "start": 62.8,
+      "completed": false
+    },
+    {
+      "text": "Send Diane's contact info from Northstar Media so Aisha can find a warmer outreach angle",
+      "assignee": "Sarah Mitchell",
+      "start": 127.1,
+      "completed": false
+    },
+    {
+      "text": "Get Diane's info over to Tom today to prioritize the Northstar outreach",
+      "assignee": "Aisha Rahman",
+      "start": 263.4,
+      "completed": false
+    },
+    {
+      "text": "Loop in marketing to find a relevant case study for the Northstar outreach",
+      "assignee": "Sarah Mitchell",
+      "start": 266.8,
+      "completed": false
+    },
+    {
+      "text": "Build the upgrade pitch for the Meridian Analytics expansion conversation",
+      "assignee": "Aisha Rahman",
+      "start": 440.8,
+      "completed": false
+    },
+    {
+      "text": "Deliver an updated sales forecast by Friday",
+      "assignee": "Sarah Mitchell",
+      "start": 472.5,
+      "completed": false
+    }
+  ]
+}

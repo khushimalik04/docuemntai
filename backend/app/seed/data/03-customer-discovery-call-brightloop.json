@@ -1,0 +1,440 @@
+{
+  "title": "Customer Discovery Call: BrightLoop Retail",
+  "date": "2026-09-08T14:00:00",
+  "participants": [
+    {
+      "name": "Sarah Mitchell",
+      "email": "sarah.mitchell@acmeanalytics.io"
+    },
+    {
+      "name": "Priya Sharma",
+      "email": "priya.sharma@acmeanalytics.io"
+    },
+    {
+      "name": "Aisha Rahman",
+      "email": "aisha.rahman@acmeanalytics.io"
+    },
+    {
+      "name": "Rachel Kim",
+      "email": "rachel.kim@brightloopretail.com"
+    },
+    {
+      "name": "James O'Connor",
+      "email": "james.oconnor@brightloopretail.com"
+    }
+  ],
+  "segments": [
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 0.0,
+      "end": 6.8,
+      "text": "Rachel, James, thanks so much for hopping on, I know end of quarter is chaos for retail."
+    },
+    {
+      "speaker": "Rachel Kim",
+      "start": 7.4,
+      "end": 13.8,
+      "text": "Happy to, honestly good timing since we've got some things piling up on our end too."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 14.6,
+      "end": 24.6,
+      "text": "Thanks for having us. I'm Priya, I lead product here, and this is Aisha who's been your main point of contact on the success side."
+    },
+    {
+      "speaker": "Aisha Rahman",
+      "start": 25.7,
+      "end": 27.7,
+      "text": "Hi again Rachel, hi James."
+    },
+    {
+      "speaker": "James O'Connor",
+      "start": 28.2,
+      "end": 29.0,
+      "text": "Hey everyone."
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 29.9,
+      "end": 42.3,
+      "text": "So the plan for today, we wanted thirty minutes to hear directly how things are going with Acme Pulse, especially around Funnel Builder since I know that's been a pain point."
+    },
+    {
+      "speaker": "Rachel Kim",
+      "start": 43.6,
+      "end": 54.8,
+      "text": "Yeah, let's start there honestly since it's the most urgent thing. Our funnels for the holiday campaign dashboard have been timing out constantly, James can give the specifics."
+    },
+    {
+      "speaker": "James O'Connor",
+      "start": 55.5,
+      "end": 69.5,
+      "text": "So for our top funnel, checkout started to checkout completed, it's basically unusable during peak hours. Loading a thirty day window takes anywhere from eight to fifteen seconds, and sometimes it just errors out entirely."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 69.8,
+      "end": 81.8,
+      "text": "That matches what we've been seeing on our end too, and I want to be upfront, we know exactly why, it's a query performance issue tied to your event volume."
+    },
+    {
+      "speaker": "Rachel Kim",
+      "start": 82.8,
+      "end": 90.8,
+      "text": "We're doing somewhere around three million events a month right now I think, going up fast with Black Friday coming."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 91.4,
+      "end": 103.0,
+      "text": "That tracks with our threshold, anything above two million events is hitting this. The good news is we already have a fix in progress specifically targeting accounts your size."
+    },
+    {
+      "speaker": "James O'Connor",
+      "start": 104.4,
+      "end": 107.6,
+      "text": "When you say in progress, how far along?"
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 108.1,
+      "end": 118.5,
+      "text": "We're mid rollout, our engineering team already backfilled the top twenty accounts by usage, I'd need to check but I believe BrightLoop is in that batch."
+    },
+    {
+      "speaker": "Aisha Rahman",
+      "start": 119.3,
+      "end": 126.1,
+      "text": "I can confirm after this call, I saw your account name on the list Kenji shared internally."
+    },
+    {
+      "speaker": "Rachel Kim",
+      "start": 126.5,
+      "end": 137.7,
+      "text": "That would be a huge relief honestly. Black Friday is in eight weeks and if funnels are still timing out then, that's a real problem for us operationally."
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 138.3,
+      "end": 143.9,
+      "text": "Understood, and I want to be honest, we take that seriously given the timing."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 144.7,
+      "end": 150.7,
+      "text": "Agreed. Aisha, can you confirm rollout status for BrightLoop specifically by end of this week?"
+    },
+    {
+      "speaker": "Aisha Rahman",
+      "start": 151.8,
+      "end": 158.2,
+      "text": "Yes, I'll check with engineering today and follow up with Rachel by Thursday at the latest."
+    },
+    {
+      "speaker": "Rachel Kim",
+      "start": 158.7,
+      "end": 166.7,
+      "text": "Appreciate that. The other thing, and this is smaller but still annoying, is CSV exports failing on large date ranges."
+    },
+    {
+      "speaker": "James O'Connor",
+      "start": 167.6,
+      "end": 180.0,
+      "text": "Yeah, anything past about fifty thousand rows just spins forever and then times out. We've had to manually split exports into weekly chunks, which is a pain for our reporting team."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 181.3,
+      "end": 191.7,
+      "text": "That's actually something our team flagged internally just this week as a regression, so good timing on raising it, we're already aware and it's being worked."
+    },
+    {
+      "speaker": "Rachel Kim",
+      "start": 192.4,
+      "end": 196.0,
+      "text": "Good to hear it's not just us imagining things."
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 196.3,
+      "end": 202.7,
+      "text": "Switching gears a bit, how are things going otherwise? Any features you wish existed that don't?"
+    },
+    {
+      "speaker": "Rachel Kim",
+      "start": 203.7,
+      "end": 220.1,
+      "text": "Honestly the cohort tooling is decent but limited. We build the same segments over and over, repeat customers versus new, by region, by campaign source. It would help a lot if we could save those definitions instead of rebuilding every time."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 220.7,
+      "end": 231.5,
+      "text": "That's genuinely great to hear, saved cohort definitions is actually one of the two big pieces of our Q4 roadmap, it's called Cohort Explorer version two internally."
+    },
+    {
+      "speaker": "James O'Connor",
+      "start": 232.9,
+      "end": 234.9,
+      "text": "Any rough timeline on that?"
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 235.4,
+      "end": 244.2,
+      "text": "Nothing I can promise externally yet since it's still in development, but I'd guess sometime in November if things stay on track."
+    },
+    {
+      "speaker": "Rachel Kim",
+      "start": 245.0,
+      "end": 251.8,
+      "text": "November would line up well actually, we do a big year end segmentation push in early December."
+    },
+    {
+      "speaker": "Aisha Rahman",
+      "start": 252.2,
+      "end": 261.0,
+      "text": "I'll make a note to loop BrightLoop in as an early access candidate once that's closer to ready, if that's of interest."
+    },
+    {
+      "speaker": "Rachel Kim",
+      "start": 261.6,
+      "end": 262.8,
+      "text": "Definitely interested, yes."
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 263.6,
+      "end": 272.0,
+      "text": "On the commercial side, I know your contract renews in January. Anything we should be thinking about ahead of that conversation?"
+    },
+    {
+      "speaker": "Rachel Kim",
+      "start": 273.1,
+      "end": 288.3,
+      "text": "Honestly, if the funnel timeout issue gets fixed before Black Friday, renewal is not really in question for us, we like the product otherwise. If it's not fixed, that's a harder conversation internally, I'll be blunt about that."
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 288.8,
+      "end": 292.8,
+      "text": "I appreciate you being direct, that helps us prioritize correctly."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 293.7,
+      "end": 303.3,
+      "text": "We hear that loud and clear, and honestly it lines up with why we scoped the fix the way we did, biggest accounts first."
+    },
+    {
+      "speaker": "James O'Connor",
+      "start": 304.6,
+      "end": 317.4,
+      "text": "One more small thing, is there any way to get Slack alerts when a scheduled report fails to generate? Right now we just find out when someone asks where the report is."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 318.1,
+      "end": 330.9,
+      "text": "That should already work through our Alerting Engine, but if it's not triggering for report failures specifically, that might be a gap. Aisha, can you check that with James after this call?"
+    },
+    {
+      "speaker": "Aisha Rahman",
+      "start": 331.2,
+      "end": 338.4,
+      "text": "Yes, happy to do a quick screen share with James later this week to check the alert configuration."
+    },
+    {
+      "speaker": "James O'Connor",
+      "start": 339.4,
+      "end": 343.0,
+      "text": "That works for me, I'm free most of Thursday."
+    },
+    {
+      "speaker": "James O'Connor",
+      "start": 343.6,
+      "end": 356.4,
+      "text": "Actually, one more technical question while I have you, does Acme Pulse support a direct data warehouse export? We're moving to Snowflake next quarter and would want our event data mirrored there."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 357.8,
+      "end": 369.4,
+      "text": "We have a beta feature for that right now, a nightly Snowflake sync, it's not generally available yet but we've had good results with the two customers piloting it."
+    },
+    {
+      "speaker": "James O'Connor",
+      "start": 369.9,
+      "end": 373.5,
+      "text": "Would BrightLoop be able to get into that beta?"
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 374.3,
+      "end": 383.1,
+      "text": "I don't see why not, let me check with the engineering team that owns it and get back to you through Aisha."
+    },
+    {
+      "speaker": "Aisha Rahman",
+      "start": 383.5,
+      "end": 390.3,
+      "text": "I'll add that to my list of things to confirm this week alongside the funnel rollout status."
+    },
+    {
+      "speaker": "Rachel Kim",
+      "start": 390.9,
+      "end": 397.3,
+      "text": "That would be great, our data team has been asking about warehouse access for a while."
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 398.1,
+      "end": 405.7,
+      "text": "Good to know, that could also be relevant for the renewal conversation honestly, shows continued investment in the account."
+    },
+    {
+      "speaker": "Rachel Kim",
+      "start": 406.8,
+      "end": 408.4,
+      "text": "Agreed, it would help."
+    },
+    {
+      "speaker": "Aisha Rahman",
+      "start": 408.9,
+      "end": 416.1,
+      "text": "Last thing from me, how has the support response time been generally, separate from the funnel issue specifically?"
+    },
+    {
+      "speaker": "James O'Connor",
+      "start": 417.0,
+      "end": 423.8,
+      "text": "Honestly pretty good, most tickets get a first response within a few hours, no real complaints there."
+    },
+    {
+      "speaker": "Rachel Kim",
+      "start": 425.1,
+      "end": 432.3,
+      "text": "Yeah, support responsiveness has never been the issue, it's really just been the funnel performance and the exports."
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 433.0,
+      "end": 437.8,
+      "text": "Good context, that helps us prioritize the right things instead of guessing."
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 438.1,
+      "end": 444.5,
+      "text": "Good to hear, and good to know the core relationship is solid even with the frustration."
+    },
+    {
+      "speaker": "Rachel Kim",
+      "start": 445.5,
+      "end": 454.3,
+      "text": "Great, I think that covers our main points. Appreciate you taking the time, and appreciate the transparency on the funnel issue specifically."
+    },
+    {
+      "speaker": "Sarah Mitchell",
+      "start": 454.9,
+      "end": 474.1,
+      "text": "Of course. To summarize, Aisha will confirm your rollout status for the funnel fix by Thursday, and set up time with James to check alert configuration for report failures. We'll also flag you both as an early access candidate for Cohort Explorer v2 once it's closer to shipping."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 475.5,
+      "end": 483.9,
+      "text": "And I'll personally follow up once we have a firmer date on Cohort Explorer v2, hopefully within the next few weeks."
+    },
+    {
+      "speaker": "Rachel Kim",
+      "start": 484.4,
+      "end": 486.0,
+      "text": "Sounds good, thanks everyone."
+    },
+    {
+      "speaker": "James O'Connor",
+      "start": 486.8,
+      "end": 488.0,
+      "text": "Thanks, talk soon."
+    },
+    {
+      "speaker": "Aisha Rahman",
+      "start": 488.4,
+      "end": 490.0,
+      "text": "Thanks both, talk Thursday."
+    }
+  ],
+  "summary": {
+    "overview": "BrightLoop Retail (Rachel Kim, VP Analytics, and James O'Connor, Data Analyst) raised Funnel Builder timeouts as the most urgent issue, with their checkout funnel taking eight to fifteen seconds to load at around three million monthly events, a problem they need resolved before Black Friday in eight weeks. Priya confirmed BrightLoop should already be part of the top-twenty account backfill in progress, and Aisha committed to confirming rollout status by Thursday. CSV export failures on date ranges over fifty thousand rows were also raised and matched to a regression the team is already tracking internally.\n\nOn the product wishlist side, BrightLoop wants saved cohort definitions to avoid rebuilding repeat customer and region-based segments, which aligns closely with the in-progress Cohort Explorer v2 work targeted for around November. Aisha will flag BrightLoop as an early access candidate once that's closer to ready. Rachel was direct that the January renewal hinges significantly on the funnel timeout fix landing before Black Friday.\n\nA smaller request came up around Slack alerts not clearly firing for failed scheduled reports, which Aisha will investigate with James in a follow-up screen share Thursday.",
+    "keywords": [
+      "BrightLoop Retail",
+      "Funnel Builder",
+      "customer discovery",
+      "Cohort Explorer",
+      "renewal",
+      "Snowflake",
+      "Black Friday"
+    ]
+  },
+  "chapters": [
+    {
+      "title": "Introductions and call agenda",
+      "start": 0.0
+    },
+    {
+      "title": "Funnel Builder timeout complaints",
+      "start": 43.6
+    },
+    {
+      "title": "Rollout status, Black Friday urgency, and CSV exports",
+      "start": 126.5
+    },
+    {
+      "title": "Cohort tooling and saved segments wishlist",
+      "start": 203.7
+    },
+    {
+      "title": "Snowflake export beta interest",
+      "start": 343.6
+    },
+    {
+      "title": "Renewal outlook and alerting follow-up",
+      "start": 263.6
+    }
+  ],
+  "action_items": [
+    {
+      "text": "Confirm BrightLoop's rollout status for the Funnel Builder fix and follow up with Rachel by Thursday",
+      "assignee": "Aisha Rahman",
+      "start": 151.8,
+      "completed": false
+    },
+    {
+      "text": "Flag BrightLoop Retail as an early access candidate for Cohort Explorer v2",
+      "assignee": "Aisha Rahman",
+      "start": 252.2,
+      "completed": false
+    },
+    {
+      "text": "Check the Alerting Engine configuration with James for failed scheduled reports",
+      "assignee": "Aisha Rahman",
+      "start": 331.2,
+      "completed": false
+    },
+    {
+      "text": "Follow up with engineering on getting BrightLoop into the Snowflake export beta",
+      "assignee": "Priya Sharma",
+      "start": 374.3,
+      "completed": false
+    },
+    {
+      "text": "Follow up with BrightLoop once there is a firmer ship date for Cohort Explorer v2",
+      "assignee": "Priya Sharma",
+      "start": 475.5,
+      "completed": false
+    }
+  ]
+}

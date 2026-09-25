@@ -1,0 +1,20 @@
+{
+  "title": "Fixture Sync",
+  "date": "2026-09-01T09:00:00",
+  "participants": [
+    { "name": "Alice Doe", "email": "alice@example.com" },
+    { "name": "Bob Lee", "email": null }
+  ],
+  "segments": [
+    { "speaker": "Alice Doe", "start": 0.0, "end": 5.0, "text": "Let's kick off the sync." },
+    { "speaker": "Bob Lee", "start": 5.0, "end": 12.0, "text": "I'll send the report by tomorrow." }
+  ],
+  "summary": {
+    "overview": "Alice and Bob discussed the roadmap and next steps for the sync.",
+    "keywords": ["roadmap", "sync"]
+  },
+  "chapters": [{ "title": "Kickoff", "start": 0.0 }],
+  "action_items": [
+    { "text": "I'll send the report by tomorrow.", "assignee": "Bob Lee", "start": 5.0, "completed": false }
+  ]
+}

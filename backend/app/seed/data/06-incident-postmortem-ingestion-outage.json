@@ -1,0 +1,508 @@
+{
+  "title": "Incident Postmortem: Ingestion Pipeline Outage",
+  "date": "2026-09-22T09:30:00",
+  "participants": [
+    {
+      "name": "Tom Becker",
+      "email": "tom.becker@acmeanalytics.io"
+    },
+    {
+      "name": "Dimitri Petrov",
+      "email": "dimitri.petrov@acmeanalytics.io"
+    },
+    {
+      "name": "Kenji Watanabe",
+      "email": "kenji.watanabe@acmeanalytics.io"
+    },
+    {
+      "name": "Marcus Johnson",
+      "email": "marcus.johnson@acmeanalytics.io"
+    }
+  ],
+  "segments": [
+    {
+      "speaker": "Tom Becker",
+      "start": 0.0,
+      "end": 12.4,
+      "text": "Okay, let's get into it. This is the postmortem for the outage on the ingestion pipeline last night. Dimitri, you were on call, can you walk us through the timeline first?"
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 13.0,
+      "end": 26.2,
+      "text": "Sure. At ten fourteen PM I got paged for elevated error rates on the event ingestion service, jumped from our normal zero point one percent to about eighteen percent within a few minutes."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 27.0,
+      "end": 31.4,
+      "text": "Eighteen percent is huge, that's basically one in five events failing."
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 32.5,
+      "end": 46.1,
+      "text": "Right, and it kept climbing. By ten twenty two it hit forty three percent, which is when I escalated and paged Kenji since it looked like it was on the ingestion service he maintains."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 46.6,
+      "end": 57.4,
+      "text": "I got paged at ten twenty four, was already half asleep, sorry for the slow initial response, took me about six minutes to get to a laptop."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 58.3,
+      "end": 62.3,
+      "text": "That's a reasonable response time honestly, no need to apologize."
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 63.6,
+      "end": 73.6,
+      "text": "By ten thirty we were at full outage, basically zero events processing successfully. That lasted until we identified the root cause at eleven oh five."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 74.3,
+      "end": 82.3,
+      "text": "So thirty five minutes of full outage plus about sixteen minutes of degraded service before that. What actually caused it?"
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 82.6,
+      "end": 95.4,
+      "text": "The root cause was a deployment earlier that evening, around nine forty five, that included a schema change to the events table, adding a new required field for the funnel builder work."
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 96.4,
+      "end": 105.6,
+      "text": "The migration itself succeeded, but the deploy didn't account for a backlog of queued events still using the old schema without that field."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 106.2,
+      "end": 123.4,
+      "text": "Right, so as the queue drained, every event missing the new required field got rejected by validation, which is why the error rate climbed gradually instead of spiking immediately, it was proportional to how much of the backlog was old format versus new."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 124.8,
+      "end": 129.2,
+      "text": "So this was a backward compatibility miss on the schema migration."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 129.7,
+      "end": 138.9,
+      "text": "Exactly. I should have made the field optional with a default value for at least one deploy cycle before enforcing it as required."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 139.7,
+      "end": 142.9,
+      "text": "How did we actually fix it once identified?"
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 143.3,
+      "end": 152.5,
+      "text": "Kenji pushed a hotfix making the field optional again at eleven oh two, and error rates dropped back to normal by eleven ten."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 153.1,
+      "end": 166.7,
+      "text": "The hotfix was fast because it was a one line change, the hard part was actually finding the root cause, we spent most of that thirty five minutes looking at the wrong thing initially."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 167.5,
+      "end": 171.1,
+      "text": "What was the wrong thing you looked at first?"
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 172.2,
+      "end": 184.6,
+      "text": "We initially suspected the database itself, since we'd had that disk space issue on staging a couple weeks back, so our instinct went straight to infrastructure rather than a recent deploy."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 185.1,
+      "end": 193.1,
+      "text": "That's a really common failure mode in incident response, anchoring on the most recent similar incident even if it's unrelated."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 194.0,
+      "end": 202.4,
+      "text": "Yeah, in hindsight the deploy timeline lined up almost exactly with when errors started, we should have checked recent deploys first."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 203.7,
+      "end": 206.9,
+      "text": "Let's talk impact. How many customers actually noticed?"
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 207.6,
+      "end": 216.4,
+      "text": "We had eleven support tickets overnight and this morning specifically about missing data or gaps in their funnels for that time window."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 216.7,
+      "end": 219.1,
+      "text": "Any of our bigger accounts affected?"
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 220.1,
+      "end": 226.5,
+      "text": "BrightLoop was one of them actually, they noticed a gap in their overnight campaign tracking data."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 227.1,
+      "end": 231.5,
+      "text": "Given everything going on with BrightLoop already, that's not great timing."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 232.9,
+      "end": 238.9,
+      "text": "Agreed, I feel pretty bad about that honestly given they're already frustrated with funnel performance."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 239.4,
+      "end": 249.4,
+      "text": "Not blaming anyone here, mistakes happen, we're here to fix the process. What about data loss, did any events get permanently dropped or just delayed?"
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 250.2,
+      "end": 263.4,
+      "text": "Good news there, nothing was permanently lost. Rejected events went to a dead letter queue instead of being discarded, so we were able to replay all of them once the hotfix went out."
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 263.8,
+      "end": 273.8,
+      "text": "Replay finished around one AM, so by the time customers woke up this morning, their data was actually complete, just delayed by a few hours."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 274.4,
+      "end": 278.0,
+      "text": "That's a relief, could have been a lot worse."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 278.8,
+      "end": 287.6,
+      "text": "Agreed, good that the dead letter queue caught it. Okay, let's get into what we're actually changing so this doesn't happen again."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 288.7,
+      "end": 303.9,
+      "text": "First thing, I want to establish a hard rule, any schema change that adds a required field must ship as optional first, with a follow up deploy making it required only after we confirm the backlog is drained."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 304.4,
+      "end": 312.0,
+      "text": "I like that as a policy, can we put that in our deployment checklist formally, not just tribal knowledge?"
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 312.9,
+      "end": 318.5,
+      "text": "Yes, I'll write that up and add it to the checklist doc this week."
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 319.8,
+      "end": 335.8,
+      "text": "Second thing, from the response side, we should have checked recent deploys within the first five minutes, not after twenty. I want to add a deploy timeline widget directly into our incident dashboard so it's the first thing anyone sees."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 336.5,
+      "end": 340.1,
+      "text": "That's a good idea, how much work is that?"
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 340.4,
+      "end": 347.2,
+      "text": "Pretty small, maybe a day, it's just surfacing data we already have in a more visible place."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 348.2,
+      "end": 353.8,
+      "text": "Let's prioritize that this week given how directly it would have shortened this incident."
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 354.4,
+      "end": 357.2,
+      "text": "Agreed, I'll have it done by Friday."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 358.6,
+      "end": 374.6,
+      "text": "Third thing, we should add a specific alert for validation rejection rate on ingestion, not just general error rate. We would have caught this within a minute or two instead of waiting for the broader error rate alert to fire."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 375.1,
+      "end": 378.3,
+      "text": "Do that too, seems like a quick win."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 379.1,
+      "end": 385.1,
+      "text": "I'll add that alert this week as well, shouldn't take more than a couple hours."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 385.5,
+      "end": 391.9,
+      "text": "What about customer communication, did we proactively notify anyone or did they all come to us?"
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 392.5,
+      "end": 402.9,
+      "text": "All eleven tickets came from customers noticing on their own, we didn't send anything proactive since we didn't fully understand scope until it was basically resolved."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 403.7,
+      "end": 411.7,
+      "text": "Should we have a status page update threshold, like anything over ten minutes of degraded service triggers an automatic post?"
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 412.8,
+      "end": 418.8,
+      "text": "I think yes, that's overdue honestly, we've talked about a status page for a while."
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 419.3,
+      "end": 427.7,
+      "text": "I can own setting that up, low effort using an existing status page tool, I'd guess half a day of work."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 428.6,
+      "end": 451.0,
+      "text": "Let's do it, and specifically loop in Aisha so customer success can proactively reach out to affected accounts like BrightLoop next time, even before a fix is in place. Let's also talk about severity classification for a second. Was this correctly classified as our highest severity level, or did it take too long to escalate internally?"
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 452.3,
+      "end": 470.3,
+      "text": "It was classified correctly once I understood scope, but I think I sat on it as a medium severity issue for maybe three or four minutes longer than I should have, right around the ten twenty two mark when it jumped to forty three percent."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 471.0,
+      "end": 473.8,
+      "text": "What made you hesitate on escalating faster?"
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 474.1,
+      "end": 488.5,
+      "text": "Honestly just wanting to confirm it wasn't a blip before waking people up at ten PM. In hindsight, given how fast it was climbing, I should have paged immediately rather than waiting to confirm the trend."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 489.5,
+      "end": 501.5,
+      "text": "That's a fair instinct generally, but I think the lesson here is any error rate climbing that fast, doubling within a couple minutes, should trigger immediate escalation regardless of confirmation."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 502.1,
+      "end": 510.5,
+      "text": "Could we bake that into the alerting rule itself, like a rate of change trigger rather than just an absolute threshold?"
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 511.9,
+      "end": 527.9,
+      "text": "That's a good idea actually, right now our alert is just a static threshold at five percent error rate. A rate of change trigger would catch something like this even earlier, potentially before it crosses the static threshold at all."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 528.4,
+      "end": 533.2,
+      "text": "How much work would a rate of change alert be to build?"
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 534.0,
+      "end": 544.4,
+      "text": "More involved than the other items, maybe three or four days, since it needs a rolling window calculation rather than a simple point in time check."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 544.8,
+      "end": 555.2,
+      "text": "Let's scope that properly rather than rush it, put it on next sprint's planning rather than trying to squeeze it in this week with everything else."
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 555.8,
+      "end": 563.0,
+      "text": "Agreed, that feels like the right pace for something that needs to be built carefully rather than hotfixed."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 563.8,
+      "end": 574.2,
+      "text": "Good, let's make sure it doesn't get lost though, I'll add it to next sprint's backlog myself so it doesn't rely on anyone remembering this conversation."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 575.3,
+      "end": 586.1,
+      "text": "That would have helped a lot here honestly, BrightLoop finding out from us rather than noticing themselves would have landed very differently given everything else going on."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 586.6,
+      "end": 592.6,
+      "text": "Agreed. Let's make sure Aisha gets looped into future incident response for major accounts specifically."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 593.5,
+      "end": 599.9,
+      "text": "Noted, I'll talk to Aisha separately about being on the notification list for major account impact."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 601.2,
+      "end": 619.2,
+      "text": "Alright, let's recap the action items. Kenji adds the required field migration policy to the deployment checklist, adds the validation rejection alert, and we already know the hotfix is stable. Dimitri builds the deploy timeline widget and sets up the status page, both by Friday."
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 619.9,
+      "end": 620.7,
+      "text": "That's right."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 621.0,
+      "end": 634.2,
+      "text": "And I'll follow up with Aisha on incident notification process for major accounts. I think that covers it, thanks everyone for the honest retro, this was a good one despite the rough night."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 635.2,
+      "end": 639.6,
+      "text": "Thanks, and sorry again for six minutes of half asleep panic."
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 640.2,
+      "end": 645.4,
+      "text": "Happens to all of us, you handled it well once you were up."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 646.8,
+      "end": 652.0,
+      "text": "Agreed, good work getting it resolved as fast as you did. Thanks everyone."
+    }
+  ],
+  "summary": {
+    "overview": "The team reviewed a full outage of the event ingestion pipeline lasting roughly 35 minutes (with 16 minutes of degraded service before it), caused by a schema migration that added a required field without backward compatibility for a backlog of queued events in the old format. Error rates climbed from 0.1% to a peak of 100% between 10:14 PM and 10:30 PM before Kenji identified the root cause and shipped a one-line hotfix at 11:02 PM, restoring normal service by 11:10 PM. Initial troubleshooting was slowed by anchoring on a recent, unrelated staging disk space issue instead of checking recent deploys first.\n\nNo data was permanently lost since rejected events were captured in a dead letter queue and fully replayed by 1 AM, though eleven customers, including BrightLoop Retail, noticed gaps in their overnight data and filed support tickets. The team acknowledged the timing was especially unfortunate given BrightLoop's existing frustration with Funnel Builder performance.\n\nFollow-up actions include a formal deployment checklist rule requiring new required fields to ship as optional first, a deploy timeline widget on the incident dashboard, a dedicated validation rejection rate alert, and a status page with an automatic posting threshold. The team also discussed a roughly three to four minute escalation delay while confirming the trend before paging, and agreed a future rate-of-change based alert (rather than a static threshold) would catch a similar spike earlier; Marcus will add that to next sprint's backlog. Tom will also follow up with Aisha about looping customer success into incident response for major accounts going forward.",
+    "keywords": [
+      "incident postmortem",
+      "outage",
+      "ingestion pipeline",
+      "schema migration",
+      "root cause",
+      "dead letter queue",
+      "BrightLoop"
+    ]
+  },
+  "chapters": [
+    {
+      "title": "Incident timeline walkthrough",
+      "start": 0.0
+    },
+    {
+      "title": "Root cause: schema migration compatibility",
+      "start": 82.6
+    },
+    {
+      "title": "Customer impact assessment",
+      "start": 203.7
+    },
+    {
+      "title": "Data loss check: dead letter queue",
+      "start": 239.4
+    },
+    {
+      "title": "Follow-up actions and process changes",
+      "start": 278.8
+    },
+    {
+      "title": "Severity classification and escalation timing",
+      "start": 428.6
+    }
+  ],
+  "action_items": [
+    {
+      "text": "Add the required-field migration policy to the deployment checklist",
+      "assignee": "Kenji Watanabe",
+      "start": 312.9,
+      "completed": false
+    },
+    {
+      "text": "Build a deploy timeline widget into the incident dashboard by Friday",
+      "assignee": "Dimitri Petrov",
+      "start": 354.4,
+      "completed": false
+    },
+    {
+      "text": "Add a dedicated validation rejection rate alert for ingestion",
+      "assignee": "Kenji Watanabe",
+      "start": 379.1,
+      "completed": false
+    },
+    {
+      "text": "Set up a status page with an automatic posting threshold",
+      "assignee": "Dimitri Petrov",
+      "start": 419.3,
+      "completed": false
+    },
+    {
+      "text": "Add a rate-of-change based error alert to next sprint's backlog",
+      "assignee": "Marcus Johnson",
+      "start": 563.8,
+      "completed": false
+    },
+    {
+      "text": "Follow up with Aisha on looping customer success into incident notifications for major accounts",
+      "assignee": "Tom Becker",
+      "start": 593.5,
+      "completed": false
+    }
+  ]
+}

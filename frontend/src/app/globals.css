@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f6f5fb;
+  --surface: #ffffff;
+  --border-color: #e6e4f0;
+  --foreground: #1c1a29;
+  --muted: #6b6880;
+
+  --color-brand-50: #f4f2ff;
+  --color-brand-100: #ece7ff;
+  --color-brand-200: #d9d0ff;
+  --color-brand-300: #bcabff;
+  --color-brand-400: #9c82ff;
+  --color-brand-500: #7c5cf0;
+  --color-brand-600: #6a3fe0;
+  --color-brand-700: #5a30c4;
+  --color-brand-800: #4a279e;
+  --color-brand-900: #3c227d;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-border: var(--border-color);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+
+  --color-brand-50: var(--color-brand-50);
+  --color-brand-100: var(--color-brand-100);
+  --color-brand-200: var(--color-brand-200);
+  --color-brand-300: var(--color-brand-300);
+  --color-brand-400: var(--color-brand-400);
+  --color-brand-500: var(--color-brand-500);
+  --color-brand-600: var(--color-brand-600);
+  --color-brand-700: var(--color-brand-700);
+  --color-brand-800: var(--color-brand-800);
+  --color-brand-900: var(--color-brand-900);
+
+  --font-sans: var(--font-inter);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+.input {
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color);
+  background: var(--surface);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  outline: none;
+}
+
+.input:focus {
+  border-color: var(--color-brand-500);
+  box-shadow: 0 0 0 3px var(--color-brand-100);
+}
+
+mark {
+  background: var(--color-brand-200);
+  color: var(--color-brand-900);
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}

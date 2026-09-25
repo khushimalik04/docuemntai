@@ -1,0 +1,484 @@
+{
+  "title": "Weekly Engineering Standup",
+  "date": "2026-09-01T09:15:00",
+  "participants": [
+    {
+      "name": "Marcus Johnson",
+      "email": "marcus.johnson@acmeanalytics.io"
+    },
+    {
+      "name": "Kenji Watanabe",
+      "email": "kenji.watanabe@acmeanalytics.io"
+    },
+    {
+      "name": "Dimitri Petrov",
+      "email": "dimitri.petrov@acmeanalytics.io"
+    },
+    {
+      "name": "Tom Becker",
+      "email": "tom.becker@acmeanalytics.io"
+    }
+  ],
+  "segments": [
+    {
+      "speaker": "Marcus Johnson",
+      "start": 0.0,
+      "end": 5.6,
+      "text": "Morning everyone, let's keep this tight, usual format, blockers first if you have any."
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 6.2,
+      "end": 16.6,
+      "text": "I've got one. The staging database ran out of disk space overnight, I already bumped the volume, just flagging it in case anyone saw failed jobs."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 17.4,
+      "end": 24.6,
+      "text": "That explains why my migration test failed at like 2am, I got a Slack alert and ignored it."
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 25.7,
+      "end": 29.7,
+      "text": "Yeah that would do it, sorry, should be fine now."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 30.2,
+      "end": 36.6,
+      "text": "Okay, thanks for the quick fix. Kenji, what's your status on the Funnel Builder scoped fix?"
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 37.5,
+      "end": 48.3,
+      "text": "Materialized view schema is done, I wrote the design doc yesterday like I said I would. Started the backfill script for the top twenty accounts last night."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 49.6,
+      "end": 52.0,
+      "text": "How's the backfill looking so far?"
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 52.7,
+      "end": 59.5,
+      "text": "Nine of the twenty done, running about twelve minutes per account which is slower than I hoped."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 59.8,
+      "end": 65.0,
+      "text": "Twelve minutes times twenty is four hours, that's fine for an overnight job."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 66.0,
+      "end": 71.6,
+      "text": "Right, I'm running it tonight for the rest. Should be done before standup tomorrow."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 72.2,
+      "end": 77.0,
+      "text": "Any risk of it interfering with the alerting engine like we discussed?"
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 78.4,
+      "end": 90.0,
+      "text": "I isolated the backfill to a read replica specifically so it wouldn't touch the primary tables alerting reads from. So far no alert delays showing up in the dashboards."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 90.5,
+      "end": 92.9,
+      "text": "Good, that was the right call."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 93.7,
+      "end": 97.3,
+      "text": "Dimitri, how's the on call transition going, any surprises?"
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 97.7,
+      "end": 112.1,
+      "text": "First week's been quiet actually, just the disk space thing this morning. I did notice our error rate on the search endpoint ticked up slightly, from about zero point two percent to zero point six percent."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 112.7,
+      "end": 118.3,
+      "text": "Zero point six isn't alarming but let's not ignore it. Do we know why?"
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 119.1,
+      "end": 127.5,
+      "text": "Not yet, I want to dig into it today, might be related to the new query composer release from last week."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 128.6,
+      "end": 133.4,
+      "text": "That's possible, I touched some shared query parsing code in that release."
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 133.9,
+      "end": 140.7,
+      "text": "Can we sync after standup for ten minutes so I can walk you through the error logs?"
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 141.6,
+      "end": 143.2,
+      "text": "Sure, works for me."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 144.5,
+      "end": 148.9,
+      "text": "Good, let's not let that sit. Tom, anything from your side?"
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 149.6,
+      "end": 158.4,
+      "text": "Just that the headcount req finally cleared, offer letter should go out to the candidate we liked, Devon, by end of week."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 158.7,
+      "end": 161.5,
+      "text": "That's great news, honestly overdue but great."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 162.5,
+      "end": 172.5,
+      "text": "Agreed. Also a heads up, I have a board meeting Thursday so I might be slow to respond, ping Marcus if anything urgent comes up."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 173.1,
+      "end": 190.3,
+      "text": "Noted. Okay, my update, I spent most of yesterday reviewing PRs, nothing blocking, but I want to flag that the Cohort Explorer comparison view spec landed from Priya, so we'll start scoping that in the next few days once the funnel fix wraps."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 191.7,
+      "end": 199.3,
+      "text": "I saw the spec, comparison view is going to need that parallel query work we talked about last month."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 199.8,
+      "end": 211.0,
+      "text": "Right, once you're done with the funnel backfill I want you to start a short spike on that, just to size it properly before we commit engineering weeks."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 211.8,
+      "end": 217.0,
+      "text": "Sounds good, I can start Thursday if the backfill finishes tonight like planned."
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 217.4,
+      "end": 226.6,
+      "text": "One more thing, I want to propose we add an automated disk space alert so we're not finding out about this manually again."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 227.2,
+      "end": 230.8,
+      "text": "Please, yes, can you set that up this week?"
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 231.6,
+      "end": 238.4,
+      "text": "Yeah, I'll wire it into our existing alerting engine, shouldn't take more than an hour or two."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 239.5,
+      "end": 242.3,
+      "text": "Great. Anything else before we close out?"
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 242.8,
+      "end": 252.0,
+      "text": "Just a small one, I noticed our CSV export is timing out for exports over fifty thousand rows again, might be a regression."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 252.9,
+      "end": 255.3,
+      "text": "Didn't we fix that in Q3?"
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 256.6,
+      "end": 263.4,
+      "text": "We fixed it for the old export path, but the new query composer bypasses that fix apparently."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 264.1,
+      "end": 270.5,
+      "text": "Ugh, okay, can you file a ticket and take a look after the funnel work settles?"
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 270.8,
+      "end": 273.2,
+      "text": "Will do, filing it now actually."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 274.2,
+      "end": 280.2,
+      "text": "Let's make sure that doesn't slip, export timeouts are a common complaint in renewal calls."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 280.8,
+      "end": 289.6,
+      "text": "Agreed, I'll keep an eye on it. Before we close, quick sprint check, how are we tracking against this sprint's committed points?"
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 291.0,
+      "end": 299.8,
+      "text": "We committed to twenty six points, I think we're at about eighteen with two days left, so should land close to plan."
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 300.3,
+      "end": 311.5,
+      "text": "My on call work isn't pointed since it's unplanned, so that's on top of the twenty six, just flagging in case velocity looks a little off this sprint."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 312.3,
+      "end": 318.7,
+      "text": "Good to know, that explains some of the slack I saw in the burndown chart yesterday."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 319.1,
+      "end": 327.5,
+      "text": "Are we still planning to demo the funnel scoped fix at Friday's sprint review, or does the backfill timing push that?"
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 328.1,
+      "end": 336.9,
+      "text": "Should be fine, backfill finishes tonight, I'll have a couple of BrightLoop style large accounts ready to show load time improvements on."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 337.7,
+      "end": 345.7,
+      "text": "Can you pull actual before and after numbers for the demo, not just describe it? Numbers land better with leadership."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 346.8,
+      "end": 358.0,
+      "text": "Yeah, I'll grab load time for the same funnel query before and after the materialized view, should be a dramatic difference, probably ten seconds down to under one."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 358.5,
+      "end": 364.1,
+      "text": "That's the kind of number that makes the roadmap conversation easier next time too."
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 365.0,
+      "end": 377.0,
+      "text": "One more small item, I want to do a quick fire drill next week, simulate a database failover so we actually know our runbook works instead of assuming it does."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 378.3,
+      "end": 380.7,
+      "text": "Good idea, when were you thinking?"
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 381.4,
+      "end": 386.6,
+      "text": "Maybe Wednesday afternoon, low traffic window, I'll send a calendar invite with details."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 386.9,
+      "end": 392.5,
+      "text": "I'd want to be around for that in case it touches anything ingestion related."
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 393.5,
+      "end": 398.7,
+      "text": "Definitely, I'll make sure the time works for you before locking it in."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 399.3,
+      "end": 401.3,
+      "text": "Sounds reasonable, let's do it."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 402.7,
+      "end": 412.7,
+      "text": "While we're on reliability topics, how's our overall alert noise looking lately? I remember a few months back we had way too many false positives."
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 413.2,
+      "end": 425.6,
+      "text": "Better actually, we tuned thresholds on the database connection pool alert last month and that cut noise by about half, from something like forty pages a week down to under twenty."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 426.4,
+      "end": 436.0,
+      "text": "The remaining noisy one is disk IO latency, it still fires more than it probably should, usually resolves itself within a minute or two."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 436.4,
+      "end": 444.0,
+      "text": "Worth tuning that one too at some point, alert fatigue is a real risk if people start ignoring pages."
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 444.6,
+      "end": 455.4,
+      "text": "Agreed, I'll add it to my list, probably a half day of work to adjust the threshold and add a short grace period before it pages anyone."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 456.2,
+      "end": 464.6,
+      "text": "Good, let's not let alert quality slip, that's exactly the kind of thing that causes someone to miss a real incident."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 465.7,
+      "end": 471.7,
+      "text": "Great, I think that's everything. Dimitri and Kenji, go sync on that error rate spike."
+    },
+    {
+      "speaker": "Dimitri Petrov",
+      "start": 472.2,
+      "end": 473.0,
+      "text": "On it."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 473.9,
+      "end": 475.9,
+      "text": "Yep, talk in a minute."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 477.2,
+      "end": 479.6,
+      "text": "Thanks everyone, have a good day."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 480.3,
+      "end": 481.1,
+      "text": "Thanks all."
+    }
+  ],
+  "summary": {
+    "overview": "A routine standup covering the Funnel Builder scoped fix, which is on track with the materialized view backfill for the top twenty accounts expected to finish overnight. Dimitri resolved a staging disk space issue and flagged a small uptick in search endpoint error rate, possibly tied to last week's query composer release, which he and Kenji will investigate right after standup.\n\nTom shared that the long-pending backend headcount requisition has cleared and an offer will go out to a candidate named Devon by end of week. The team also surfaced a regression where CSV exports over fifty thousand rows are timing out again through the new query composer path, which Kenji will ticket and address. Dimitri will add an automated disk space alert this week to avoid a repeat.",
+    "keywords": [
+      "standup",
+      "Funnel Builder",
+      "on call",
+      "error rate",
+      "headcount",
+      "CSV export",
+      "sprint review"
+    ]
+  },
+  "chapters": [
+    {
+      "title": "Blockers: staging disk space",
+      "start": 6.2
+    },
+    {
+      "title": "Funnel Builder backfill status",
+      "start": 37.5
+    },
+    {
+      "title": "On call handoff and error rate uptick",
+      "start": 97.7
+    },
+    {
+      "title": "Headcount update and board meeting heads up",
+      "start": 149.6
+    },
+    {
+      "title": "CSV export regression",
+      "start": 242.8
+    },
+    {
+      "title": "Sprint check-in and failover fire drill",
+      "start": 280.8
+    }
+  ],
+  "action_items": [
+    {
+      "text": "Sync with Kenji after standup to review search endpoint error logs",
+      "assignee": "Dimitri Petrov",
+      "start": 133.9,
+      "completed": false
+    },
+    {
+      "text": "Send the offer letter to candidate Devon by end of week",
+      "assignee": "Tom Becker",
+      "start": 149.6,
+      "completed": false
+    },
+    {
+      "text": "Add an automated disk space alert wired into the alerting engine",
+      "assignee": "Dimitri Petrov",
+      "start": 231.6,
+      "completed": true
+    },
+    {
+      "text": "File a ticket for the CSV export timeout regression on the new query composer path",
+      "assignee": "Kenji Watanabe",
+      "start": 270.8,
+      "completed": false
+    },
+    {
+      "text": "Pull before and after load time numbers for the Funnel Builder demo at Friday's sprint review",
+      "assignee": "Kenji Watanabe",
+      "start": 346.8,
+      "completed": false
+    },
+    {
+      "text": "Send a calendar invite for a database failover fire drill next Wednesday afternoon",
+      "assignee": "Dimitri Petrov",
+      "start": 381.4,
+      "completed": false
+    }
+  ]
+}

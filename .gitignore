@@ -1,0 +1,23 @@
+# Python
+backend/.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# SQLite database (recreated + seeded on startup)
+backend/*.db
+backend/*.db-journal
+
+# Env
+.env
+.env.local
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local Claude Code launch config (machine-specific paths)
+.claude/
+*.log

@@ -1,0 +1,436 @@
+{
+  "title": "Dashboard Redesign Design Review",
+  "date": "2026-09-15T13:00:00",
+  "participants": [
+    {
+      "name": "Elena Vasquez",
+      "email": "elena.vasquez@acmeanalytics.io"
+    },
+    {
+      "name": "Priya Sharma",
+      "email": "priya.sharma@acmeanalytics.io"
+    },
+    {
+      "name": "Marcus Johnson",
+      "email": "marcus.johnson@acmeanalytics.io"
+    },
+    {
+      "name": "Kenji Watanabe",
+      "email": "kenji.watanabe@acmeanalytics.io"
+    }
+  ],
+  "segments": [
+    {
+      "speaker": "Elena Vasquez",
+      "start": 0.0,
+      "end": 8.4,
+      "text": "Thanks for joining, today I want to walk through the updated dashboard redesign before we hand it to engineering for estimation."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 9.0,
+      "end": 15.4,
+      "text": "Excited for this one, the current dashboard layout has been the same for almost two years."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 16.2,
+      "end": 22.2,
+      "text": "Same, I've heard complaints from support about the sidebar navigation specifically, people say it's cluttered."
+    },
+    {
+      "speaker": "Elena Vasquez",
+      "start": 23.3,
+      "end": 37.3,
+      "text": "That's exactly what this addresses. So starting from the top, we're moving from the left sidebar with twelve items down to a collapsible sidebar with five top level sections, and everything else lives inside those."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 37.8,
+      "end": 39.8,
+      "text": "Five sections, what are they?"
+    },
+    {
+      "speaker": "Elena Vasquez",
+      "start": 40.7,
+      "end": 51.5,
+      "text": "Overview, Funnels, Cohorts, Alerts, and Settings. Reports actually gets folded into Overview since usage data showed most people check reports right after landing on the dashboard anyway."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 52.8,
+      "end": 60.0,
+      "text": "That matches the usage data I pulled too, Reports as a standalone tab had really low direct navigation."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 60.7,
+      "end": 68.3,
+      "text": "How much of this is purely visual versus structural? Asking because structural changes touch more of our routing code."
+    },
+    {
+      "speaker": "Elena Vasquez",
+      "start": 68.6,
+      "end": 80.2,
+      "text": "It's mostly structural honestly, we're not just reskinning, we're changing the information architecture. The good news is the underlying data calls don't change, just how they're organized on screen."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 81.2,
+      "end": 85.6,
+      "text": "That's a relief, I was worried this meant new API endpoints."
+    },
+    {
+      "speaker": "Elena Vasquez",
+      "start": 86.2,
+      "end": 92.2,
+      "text": "No new endpoints needed for phase one. Let me walk through the Overview screen specifically."
+    },
+    {
+      "speaker": "Elena Vasquez",
+      "start": 93.6,
+      "end": 108.4,
+      "text": "Top of the page is a summary strip, four key metrics, active users, conversion rate, average funnel completion time, and open alerts count. Below that is a chart area that defaults to the account's most viewed funnel."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 108.9,
+      "end": 115.3,
+      "text": "I like defaulting to most viewed funnel instead of a generic chart, that's a nice touch."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 116.1,
+      "end": 120.1,
+      "text": "How do we determine most viewed, is that tracked already?"
+    },
+    {
+      "speaker": "Elena Vasquez",
+      "start": 120.5,
+      "end": 129.3,
+      "text": "We'd need a small addition, tracking which funnel view gets opened most per account. Kenji, is that something we already log anywhere?"
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 129.9,
+      "end": 141.5,
+      "text": "We log page views generally but not funnel specific view counts, that would need a new event and a small aggregation query. Probably two or three days of work."
+    },
+    {
+      "speaker": "Elena Vasquez",
+      "start": 142.3,
+      "end": 145.9,
+      "text": "Good to know, I'll note that as a dependency."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 147.0,
+      "end": 150.2,
+      "text": "Let's keep going, what's next on the screen?"
+    },
+    {
+      "speaker": "Elena Vasquez",
+      "start": 150.7,
+      "end": 163.1,
+      "text": "Below the chart is an activity feed, recent alerts fired, recent exports, recent cohort saves once that ships. It's meant to feel a bit more alive than the current static dashboard."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 164.0,
+      "end": 172.0,
+      "text": "I really like that, it reinforces that things are happening in the product even if you're not actively poking around."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 173.3,
+      "end": 186.1,
+      "text": "Activity feed sounds like it needs a new table or at least a unified event log across alerts, exports, and cohorts. Right now those live in three separate tables with different schemas."
+    },
+    {
+      "speaker": "Elena Vasquez",
+      "start": 186.8,
+      "end": 188.8,
+      "text": "Is that a big lift?"
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 189.1,
+      "end": 197.9,
+      "text": "Not huge, but not trivial either, I'd estimate about a week to build a unified activity log table and backfill recent history."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 198.9,
+      "end": 208.5,
+      "text": "Let's flag that as a dependency for phase one then, since the activity feed is kind of the centerpiece of the new Overview screen."
+    },
+    {
+      "speaker": "Elena Vasquez",
+      "start": 209.1,
+      "end": 210.3,
+      "text": "Agreed, noting that."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 211.7,
+      "end": 214.9,
+      "text": "Moving on, what about the Funnels section itself?"
+    },
+    {
+      "speaker": "Elena Vasquez",
+      "start": 215.4,
+      "end": 229.4,
+      "text": "Mostly the same functionally, but visually cleaner, we reduced the number of clicks to build a new funnel from five steps to three by combining the event picker and the filter picker into one screen."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 230.2,
+      "end": 235.8,
+      "text": "That's a nice simplification, should be low risk from an engineering side, mostly frontend."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 236.2,
+      "end": 239.8,
+      "text": "Agreed, that one doesn't touch backend much at all."
+    },
+    {
+      "speaker": "Elena Vasquez",
+      "start": 240.4,
+      "end": 255.2,
+      "text": "Good. Now, the part I actually want the most feedback on, color and visual hierarchy. We moved away from the blue and gray palette to a slightly warmer palette, more contrast between primary actions and secondary ones."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 256.0,
+      "end": 264.0,
+      "text": "Can you pull up the actual mockup? I want to see the contrast in practice, not just hear about it."
+    },
+    {
+      "speaker": "Elena Vasquez",
+      "start": 265.1,
+      "end": 278.7,
+      "text": "Sharing screen now. So primary buttons are this deep teal, secondary actions are outlined only, and destructive actions like deleting a saved funnel are this muted red, not the bright red we used before."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 279.2,
+      "end": 286.0,
+      "text": "The muted red is a good call, the old bright red felt alarming even for minor actions."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 286.9,
+      "end": 299.7,
+      "text": "I like the teal, it's distinct without being loud. One thing though, is there enough contrast for accessibility? We had a complaint last year about low contrast text on the settings page."
+    },
+    {
+      "speaker": "Elena Vasquez",
+      "start": 301.0,
+      "end": 314.6,
+      "text": "Good catch, I ran this through a contrast checker, everything's at least four point five to one, which meets WCAG AA for normal text. I can double check the smaller label text specifically though."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 315.3,
+      "end": 319.7,
+      "text": "Appreciate that, let's not ship something we have to immediately patch."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 320.0,
+      "end": 326.4,
+      "text": "From a technical standpoint, are we introducing new design tokens or reusing the existing color variables?"
+    },
+    {
+      "speaker": "Elena Vasquez",
+      "start": 327.4,
+      "end": 337.0,
+      "text": "New tokens, but I tried to keep the naming consistent with what already exists so it's not a total rewrite of the theme file."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 337.6,
+      "end": 341.2,
+      "text": "That helps a lot, appreciate you thinking about that."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 342.6,
+      "end": 349.4,
+      "text": "Let's talk timeline and phasing since this is a lot of surface area to ship at once."
+    },
+    {
+      "speaker": "Elena Vasquez",
+      "start": 349.9,
+      "end": 360.3,
+      "text": "I'd suggest phase one is just Overview and the new navigation structure, phase two is Funnels and Cohorts visual updates, phase three is Alerts and Settings."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 361.1,
+      "end": 366.3,
+      "text": "That phasing makes sense, Overview and navigation are the highest visibility changes anyway."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 366.7,
+      "end": 372.3,
+      "text": "Kenji, rough gut check on phase one engineering time given the activity log dependency?"
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 372.9,
+      "end": 382.5,
+      "text": "With the unified activity log and the funnel view tracking, I'd guess two and a half to three weeks for phase one including QA."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 383.3,
+      "end": 389.3,
+      "text": "That's workable, especially since it overlaps with some downtime after the funnel builder fix wraps."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 390.4,
+      "end": 396.8,
+      "text": "One more thing before we close, have we user tested any of this yet, even informally?"
+    },
+    {
+      "speaker": "Elena Vasquez",
+      "start": 397.3,
+      "end": 409.3,
+      "text": "I did five quick sessions last week with existing customers, four out of five preferred the new navigation immediately, the fifth wanted to keep Reports as its own tab specifically."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 410.2,
+      "end": 415.8,
+      "text": "Four out of five is a good signal, I'm comfortable moving forward given that."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 417.1,
+      "end": 426.7,
+      "text": "What did the fifth person say specifically about keeping Reports separate? Curious if that's a pattern worth designing around or just one person's preference."
+    },
+    {
+      "speaker": "Elena Vasquez",
+      "start": 427.4,
+      "end": 439.8,
+      "text": "They mentioned using Reports as a bookmark, going straight there every morning without looking at anything else. It's a valid workflow, just not the majority one based on the usage data."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 440.1,
+      "end": 448.5,
+      "text": "Could we solve that with a pinned or default landing page setting instead of keeping the whole tab structure around it?"
+    },
+    {
+      "speaker": "Elena Vasquez",
+      "start": 449.5,
+      "end": 459.5,
+      "text": "That's actually a nice idea, a small preference to set your default landing view within Overview. I'll sketch that as an option for phase one."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 460.1,
+      "end": 466.1,
+      "text": "That should be a small addition, just a user preference field, not a structural change."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 467.5,
+      "end": 480.3,
+      "text": "Good, that addresses the one dissenting data point without adding real engineering cost. Agreed, let's move to engineering scoping. I'll have Kenji write up a proper estimate doc by early next week."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 480.8,
+      "end": 483.2,
+      "text": "I can have that by Wednesday."
+    },
+    {
+      "speaker": "Elena Vasquez",
+      "start": 484.0,
+      "end": 491.2,
+      "text": "I'll finalize the phase one mockups with the accessibility fixes by Friday so engineering has a clean handoff."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 491.6,
+      "end": 498.8,
+      "text": "Great, sounds like a solid session. Thanks Elena, this is a big step up from the current dashboard."
+    },
+    {
+      "speaker": "Elena Vasquez",
+      "start": 499.4,
+      "end": 501.8,
+      "text": "Thanks everyone, appreciate the thorough feedback."
+    }
+  ],
+  "summary": {
+    "overview": "Elena presented the dashboard redesign ahead of engineering estimation, replacing the twelve-item sidebar with five top-level sections (Overview, Funnels, Cohorts, Alerts, Settings) and folding Reports into Overview based on usage data. The new Overview screen introduces a summary metrics strip, a chart defaulting to the account's most-viewed funnel, and an activity feed unifying alerts, exports, and cohort saves, the last of which requires Kenji to build a new unified activity log table, estimated at about a week.\n\nThe team reviewed a warmer color palette with a deep teal primary action color and muted red for destructive actions, replacing the previous bright red. Priya raised an accessibility concern from a past complaint about low contrast text; Elena confirmed WCAG AA compliance for body text via a contrast checker and will double check smaller label text before final handoff. Five informal user test sessions showed four of five participants preferring the new navigation.\n\nThe redesign will ship in three phases, starting with Overview and navigation, estimated at two and a half to three weeks of engineering time including the activity log dependency. Kenji will deliver a full estimate doc by Wednesday and Elena will finalize phase one mockups with accessibility fixes by Friday.",
+    "keywords": [
+      "dashboard redesign",
+      "design review",
+      "navigation",
+      "accessibility",
+      "activity feed",
+      "color palette",
+      "phasing"
+    ]
+  },
+  "chapters": [
+    {
+      "title": "New navigation structure walkthrough",
+      "start": 23.3
+    },
+    {
+      "title": "Overview screen: metrics and activity feed",
+      "start": 93.6
+    },
+    {
+      "title": "Funnels section simplification",
+      "start": 215.4
+    },
+    {
+      "title": "Color palette and accessibility",
+      "start": 240.4
+    },
+    {
+      "title": "Timeline and phasing",
+      "start": 342.6
+    },
+    {
+      "title": "User testing results and next steps",
+      "start": 390.4
+    }
+  ],
+  "action_items": [
+    {
+      "text": "Double check contrast ratios on smaller label text against WCAG AA",
+      "assignee": "Elena Vasquez",
+      "start": 301.0,
+      "completed": false
+    },
+    {
+      "text": "Sketch a default landing page preference option for phase one",
+      "assignee": "Elena Vasquez",
+      "start": 449.5,
+      "completed": false
+    },
+    {
+      "text": "Write up a full engineering estimate doc for phase one by Wednesday",
+      "assignee": "Kenji Watanabe",
+      "start": 480.8,
+      "completed": false
+    },
+    {
+      "text": "Finalize phase one mockups with accessibility fixes by Friday",
+      "assignee": "Elena Vasquez",
+      "start": 484.0,
+      "completed": false
+    }
+  ]
+}

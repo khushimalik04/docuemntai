@@ -1,0 +1,566 @@
+{
+  "title": "Q4 Roadmap Planning",
+  "date": "2026-08-28T10:00:00",
+  "participants": [
+    {
+      "name": "Priya Sharma",
+      "email": "priya.sharma@acmeanalytics.io"
+    },
+    {
+      "name": "Marcus Johnson",
+      "email": "marcus.johnson@acmeanalytics.io"
+    },
+    {
+      "name": "Tom Becker",
+      "email": "tom.becker@acmeanalytics.io"
+    },
+    {
+      "name": "Elena Vasquez",
+      "email": "elena.vasquez@acmeanalytics.io"
+    },
+    {
+      "name": "Kenji Watanabe",
+      "email": "kenji.watanabe@acmeanalytics.io"
+    }
+  ],
+  "segments": [
+    {
+      "speaker": "Priya Sharma",
+      "start": 0.0,
+      "end": 7.6,
+      "text": "Okay, I think we're all here, let's get started. Thanks for making time, I know Friday afternoons are rough."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 8.2,
+      "end": 11.0,
+      "text": "No worries, better than another Monday meeting."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 11.8,
+      "end": 20.6,
+      "text": "Agreed. So the agenda today is Q4 roadmap, and I want us to leave with a locked list, not a maybe list."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 21.7,
+      "end": 32.9,
+      "text": "Right. Quick recap of Q3 first. We shipped the new Alerting Engine, the Slack integration, and we finally closed out the CSV export bug that customers kept hitting."
+    },
+    {
+      "speaker": "Elena Vasquez",
+      "start": 33.4,
+      "end": 37.0,
+      "text": "And the onboarding flow redesign, don't forget that one."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 37.9,
+      "end": 43.1,
+      "text": "Yes, sorry, that too. Activation went up about eleven percent after that shipped."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 44.4,
+      "end": 51.6,
+      "text": "Eleven percent, that's solid. Did that hold after the first two weeks or was it a novelty bump?"
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 52.3,
+      "end": 55.9,
+      "text": "Held steady through August, so I think it's real."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 56.2,
+      "end": 67.0,
+      "text": "Good. Okay, Q4. The three big candidates on the table are Cohort Explorer version two, the Funnel Builder performance rework, and self serve billing. Anything I'm missing?"
+    },
+    {
+      "speaker": "Elena Vasquez",
+      "start": 68.0,
+      "end": 76.0,
+      "text": "The dashboard redesign is technically Q4 too, but that's a separate design review, we don't need to relitigate it here."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 76.6,
+      "end": 80.2,
+      "text": "Right, that one's already scoped, Elena's team owns that."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 81.6,
+      "end": 87.2,
+      "text": "Let's start with Cohort Explorer v2 since that's the one sales keeps asking about."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 87.7,
+      "end": 90.1,
+      "text": "What's actually changing in v2, functionally?"
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 90.9,
+      "end": 103.7,
+      "text": "Three things. Saved cohort definitions so people stop rebuilding the same segment every week, cohort comparison side by side, and the ability to export a cohort straight into an email campaign tool."
+    },
+    {
+      "speaker": "Elena Vasquez",
+      "start": 104.1,
+      "end": 110.5,
+      "text": "The comparison view is the one customers ask about most in interviews, by a wide margin."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 111.1,
+      "end": 117.1,
+      "text": "How big is that engineering lift? Comparison view sounds like it touches the query engine."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 117.9,
+      "end": 125.9,
+      "text": "It does. Sorry, I know I'm not really on this call, Priya asked me to weigh in for ten minutes."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 127.0,
+      "end": 131.8,
+      "text": "Yeah, go ahead Kenji, you looked at the query side last week."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 132.3,
+      "end": 151.1,
+      "text": "So comparison view means running two cohort queries in parallel and diffing them. Right now our query engine isn't built for that, it assumes one cohort at a time. I'd estimate three weeks just for the backend, plus caching work so it doesn't double our database load."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 152.0,
+      "end": 158.4,
+      "text": "Three weeks for backend alone. Plus frontend, plus QA, that's basically five to six weeks total."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 159.7,
+      "end": 162.9,
+      "text": "That's roughly what I had penciled in too."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 163.6,
+      "end": 167.2,
+      "text": "And where does that leave the Funnel Builder rework?"
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 167.5,
+      "end": 179.5,
+      "text": "That's the other big one. Funnel Builder queries are timing out for our larger customers, anyone above like two million events a month is seeing load times over ten seconds."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 180.5,
+      "end": 185.3,
+      "text": "Ten seconds, that's brutal, no wonder support tickets on this are up."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 185.9,
+      "end": 192.7,
+      "text": "Support flagged eighteen tickets on funnel timeouts in the last thirty days. BrightLoop specifically has complained twice."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 194.1,
+      "end": 200.1,
+      "text": "BrightLoop again, they're one of our biggest accounts, Sarah's been managing that relationship pretty closely."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 200.6,
+      "end": 203.8,
+      "text": "How do we fix it, and how long?"
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 204.6,
+      "end": 217.4,
+      "text": "We need to precompute funnel steps instead of running them live every time. That's a materialized view approach. I'd say four weeks, and Kenji would be the one building most of it."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 217.8,
+      "end": 227.4,
+      "text": "Four weeks is optimistic if we also want backfill for existing funnels, not just new ones going forward. I'd say five to be safe."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 228.0,
+      "end": 229.6,
+      "text": "Fair, let's say five."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 230.4,
+      "end": 240.8,
+      "text": "Okay so if we do Cohort Explorer v2 at six weeks and Funnel Builder at five weeks, that's basically our whole quarter for two backend engineers."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 241.9,
+      "end": 245.9,
+      "text": "Which means self serve billing doesn't happen this quarter, realistically."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 246.4,
+      "end": 257.2,
+      "text": "I think that's the right call honestly, billing was always going to be more of a growth bet, and the funnel timeouts are actively costing us renewals."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 258.1,
+      "end": 271.7,
+      "text": "Can I push back slightly? What if we do a scoped version of Funnel Builder first, just fix the timeout for the top twenty accounts by usage, and defer the full backfill to Q1?"
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 273.0,
+      "end": 281.8,
+      "text": "That's actually doable in about two and a half weeks if we just target the accounts over the two million event threshold."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 282.5,
+      "end": 288.5,
+      "text": "I like that. That frees up time for at least a slice of billing work."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 288.8,
+      "end": 300.4,
+      "text": "Okay, let's do that. Funnel Builder scoped fix first, two and a half weeks, then Cohort Explorer v2, then whatever's left goes to billing groundwork, not a full launch."
+    },
+    {
+      "speaker": "Elena Vasquez",
+      "start": 301.4,
+      "end": 311.8,
+      "text": "For Cohort Explorer v2, I'll need final requirements from Priya by end of next week if we want mockups ready in time for the engineering kickoff."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 312.4,
+      "end": 319.2,
+      "text": "That works, I'll get you a written spec by Wednesday so you have a couple extra days."
+    },
+    {
+      "speaker": "Elena Vasquez",
+      "start": 320.6,
+      "end": 325.4,
+      "text": "Perfect, I can turn mockups around in about a week after that."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 325.9,
+      "end": 331.1,
+      "text": "Let's talk pricing tiers for a second, since that connects to billing anyway."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 331.9,
+      "end": 344.3,
+      "text": "Right, so the proposal is we introduce a Growth tier between Starter and Enterprise, priced around four hundred and ninety dollars a month, that unlocks Cohort Explorer and the Alerting Engine."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 344.7,
+      "end": 349.1,
+      "text": "Is four ninety based on anything or is that a guess?"
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 349.7,
+      "end": 362.1,
+      "text": "It's based on the willingness to pay survey we ran in July, most respondents in that segment said they'd pay between four fifty and five fifty for those two features combined."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 362.9,
+      "end": 368.5,
+      "text": "What about existing Starter customers who already have Cohort Explorer through a grandfathered plan?"
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 369.6,
+      "end": 378.0,
+      "text": "Good question, I think we grandfather anyone who signed before the tier launches, otherwise we'll get a wave of angry emails."
+    },
+    {
+      "speaker": "Elena Vasquez",
+      "start": 378.5,
+      "end": 383.7,
+      "text": "Agreed, nothing kills trust faster than taking away a feature someone's paying for."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 384.6,
+      "end": 392.6,
+      "text": "Okay, write that up as a formal doc, I want legal and finance to see it before we announce anything."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 393.9,
+      "end": 397.5,
+      "text": "I'll have a draft doc ready by next Monday."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 398.2,
+      "end": 406.6,
+      "text": "Switching gears, can we talk headcount? I've had an open backend req for six weeks now and it's slowing everything down."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 406.9,
+      "end": 415.7,
+      "text": "I know, I approved the budget line two weeks ago, it's stuck in an approval queue on my end, that's on me."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 416.7,
+      "end": 426.3,
+      "text": "If we're doing Cohort Explorer and Funnel Builder in the same quarter with the same two engineers, someone's going to burn out, probably Kenji."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 426.9,
+      "end": 429.7,
+      "text": "I appreciate you saying that out loud."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 431.1,
+      "end": 437.9,
+      "text": "Noted. I'll get the req formally approved by end of day Monday, no more sitting in queue."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 438.4,
+      "end": 444.4,
+      "text": "Thank you. Okay, let's also touch on risks quickly. What could blow up this plan?"
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 445.2,
+      "end": 457.2,
+      "text": "Biggest risk is the materialized view work for Funnel Builder touching the same database tables that the alerting engine reads from. If we're not careful we could introduce alerting delays."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 457.6,
+      "end": 465.2,
+      "text": "I'll write a short design doc before I start so we catch that early, should take me a day."
+    },
+    {
+      "speaker": "Elena Vasquez",
+      "start": 465.8,
+      "end": 475.0,
+      "text": "From design side, the risk is scope creep on comparison view, stakeholders always want one more filter option once they see the mockup."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 475.8,
+      "end": 481.4,
+      "text": "I'll own keeping that scoped, we can put extra filters in a v2.1 backlog."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 482.5,
+      "end": 496.5,
+      "text": "One more risk I want to name, competitively. Have we heard anything about what our competitors are doing on funnel analytics specifically? I don't want us to be reactive instead of ahead of the market."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 497.0,
+      "end": 510.2,
+      "text": "From what I've seen in win loss notes, our two main competitors, Metricly and Pathframe, both still lack real time funnel updates, everything they have is batch, refreshed once a day at best."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 511.1,
+      "end": 520.3,
+      "text": "That's actually a meaningful gap we could lean into once the materialized view work is done, since ours will effectively refresh much faster."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 521.6,
+      "end": 530.8,
+      "text": "I'll talk to marketing about positioning around performance once we have the before and after numbers Marcus mentioned earlier, once we've validated them."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 531.5,
+      "end": 543.9,
+      "text": "One more small thing on risk, we haven't talked about the Query Composer team's roadmap. Are they planning any changes that could conflict with either of our two big Q4 items?"
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 544.2,
+      "end": 561.8,
+      "text": "I checked with them last week actually, they have a change planned in October to how filters get parsed internally, which could touch the same code path as Cohort Explorer's comparison view. I'll set up time with their lead this week to compare timelines."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 562.8,
+      "end": 572.4,
+      "text": "Appreciate you catching that, that kind of cross team collision is exactly the sort of thing that blows up a quarter if it's missed."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 573.0,
+      "end": 575.4,
+      "text": "Good. Anything else before we wrap?"
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 576.8,
+      "end": 583.2,
+      "text": "Just a reminder that our on call rotation changes next week, Dimitri's taking over from me."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 583.7,
+      "end": 586.9,
+      "text": "Noted, unrelated to roadmap but good to know."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 587.7,
+      "end": 606.1,
+      "text": "Alright. Let's recap decisions. Funnel Builder scoped fix first, roughly two and a half weeks. Cohort Explorer v2 next, roughly five to six weeks including comparison view. Billing gets whatever's left as groundwork only, not a launch. Pricing doc goes to legal and finance next week."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 606.5,
+      "end": 611.7,
+      "text": "And Elena gets the written spec by Wednesday, mockups about a week after."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 612.3,
+      "end": 622.7,
+      "text": "And I'll get you the funnel timeout numbers, actual latency figures, by Wednesday too so we have a baseline to compare against once the fix ships."
+    },
+    {
+      "speaker": "Tom Becker",
+      "start": 623.5,
+      "end": 627.5,
+      "text": "Great, and I'll push the headcount approval through by Monday."
+    },
+    {
+      "speaker": "Priya Sharma",
+      "start": 628.6,
+      "end": 634.6,
+      "text": "Sounds like a plan. Thanks everyone, same time next month for the Q4 check in."
+    },
+    {
+      "speaker": "Elena Vasquez",
+      "start": 635.1,
+      "end": 636.7,
+      "text": "Sounds good, talk soon."
+    },
+    {
+      "speaker": "Kenji Watanabe",
+      "start": 637.6,
+      "end": 638.4,
+      "text": "Thanks, bye."
+    },
+    {
+      "speaker": "Marcus Johnson",
+      "start": 639.7,
+      "end": 640.1,
+      "text": "Later."
+    }
+  ],
+  "summary": {
+    "overview": "The team locked in the Q4 roadmap for Acme Pulse, prioritizing a scoped fix for Funnel Builder query timeouts (affecting accounts above two million monthly events, including BrightLoop Retail) ahead of a fuller backfill planned for Q1. Cohort Explorer v2, including a new side-by-side cohort comparison view, was approved as the second major initiative, with Elena delivering mockups roughly a week after Priya circulates a written spec. Self serve billing was deprioritized to groundwork only given limited backend capacity.\n\nThe team also discussed introducing a new Growth pricing tier at approximately $490/month bundling Cohort Explorer and the Alerting Engine, based on July's willingness-to-pay survey, with existing Starter customers to be grandfathered. Tom committed to pushing through a long-stalled backend headcount approval by Monday to reduce load on Kenji and Marcus.\n\nOpen questions include finalizing the pricing doc with legal and finance, and guarding against scope creep on the cohort comparison view once stakeholders see the mockups. The team also noted a competitive opening around real time funnel refresh versus batch-only competitors like Metricly and Pathframe, and flagged a possible collision with the Query Composer team's planned October filter parsing changes that Kenji will sync on directly.",
+    "keywords": [
+      "roadmap",
+      "Cohort Explorer",
+      "Funnel Builder",
+      "pricing tier",
+      "headcount",
+      "Q4 planning",
+      "BrightLoop"
+    ]
+  },
+  "chapters": [
+    {
+      "title": "Kickoff and Q3 recap",
+      "start": 0.0
+    },
+    {
+      "title": "Cohort Explorer v2 scope",
+      "start": 81.6
+    },
+    {
+      "title": "Funnel Builder performance and timeouts",
+      "start": 167.5
+    },
+    {
+      "title": "Pricing tier proposal",
+      "start": 325.9
+    },
+    {
+      "title": "Headcount and risk review",
+      "start": 398.2
+    },
+    {
+      "title": "Decisions recap and wrap-up",
+      "start": 587.7
+    }
+  ],
+  "action_items": [
+    {
+      "text": "Send Funnel Builder timeout latency numbers as a baseline before the fix ships",
+      "assignee": "Marcus Johnson",
+      "start": 612.3,
+      "completed": false
+    },
+    {
+      "text": "Deliver Cohort Explorer v2 mockups about a week after receiving the written spec",
+      "assignee": "Elena Vasquez",
+      "start": 320.6,
+      "completed": false
+    },
+    {
+      "text": "Write the written spec for Cohort Explorer v2 by Wednesday",
+      "assignee": "Priya Sharma",
+      "start": 312.4,
+      "completed": false
+    },
+    {
+      "text": "Draft the Growth pricing tier doc for legal and finance review",
+      "assignee": "Priya Sharma",
+      "start": 393.9,
+      "completed": false
+    },
+    {
+      "text": "Push through the approval for the open backend engineer requisition by Monday",
+      "assignee": "Tom Becker",
+      "start": 431.1,
+      "completed": true
+    },
+    {
+      "text": "Write a short design doc on materialized view risk to the alerting engine before starting Funnel Builder work",
+      "assignee": "Kenji Watanabe",
+      "start": 457.6,
+      "completed": false
+    }
+  ]
+}
