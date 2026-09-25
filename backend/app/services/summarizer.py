@@ -7,6 +7,7 @@ back to the heuristic so the app never breaks because of the optional key.
 import json
 import re
 from collections import Counter
+from typing import Optional, List, Set, Dict, Any
 
 STOPWORDS = {
     "the", "a", "an", "and", "or", "but", "if", "then", "so", "to", "of", "in",
@@ -34,7 +35,7 @@ ACTION_PATTERNS = re.compile(
 )
 
 
-def _keywords_from_text(text: str, top_n: int = 8, exclude: set[str] | None = None) -> list[str]:
+def _keywords_from_text(text: str, top_n: int = 8, exclude: Optional[Set[str]] = None) -> List[str]:
     words = re.findall(r"[a-zA-Z']+", text.lower())
     skip = STOPWORDS | (exclude or set())
     words = [w for w in words if w not in skip and len(w) >= 3]
@@ -42,7 +43,7 @@ def _keywords_from_text(text: str, top_n: int = 8, exclude: set[str] | None = No
     return [word for word, _ in counts.most_common(top_n)]
 
 
-def _heuristic_overview(segments: list[dict], participants: list[str]) -> str:
+def _heuristic_overview(segments: List[Dict[str, Any]], participants: List[str]) -> str:
     if not segments:
         return "No transcript content was recorded for this meeting."
 
@@ -63,7 +64,7 @@ def _heuristic_overview(segments: list[dict], participants: list[str]) -> str:
     return overview
 
 
-def _heuristic_chapters(segments: list[dict]) -> list[dict]:
+def _heuristic_chapters(segments: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     if not segments:
         return []
 
@@ -85,7 +86,7 @@ def _heuristic_chapters(segments: list[dict]) -> list[dict]:
     return chapters
 
 
-def _heuristic_action_items(segments: list[dict]) -> list[dict]:
+def _heuristic_action_items(segments: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     items = []
     for seg in segments:
         if ACTION_PATTERNS.search(seg["text"]):
@@ -93,7 +94,7 @@ def _heuristic_action_items(segments: list[dict]) -> list[dict]:
     return items
 
 
-def heuristic_summarize(segments: list[dict], participants: list[str]) -> dict:
+def heuristic_summarize(segments: List[Dict[str, Any]], participants: List[str]) -> Dict[str, Any]:
     all_text = " ".join(s["text"] for s in segments)
     # People's names are frequent in transcripts but make poor keywords.
     name_words = {w.lower() for name in participants for w in name.split()}
@@ -106,7 +107,7 @@ def heuristic_summarize(segments: list[dict], participants: list[str]) -> dict:
     }
 
 
-def _format_transcript_for_llm(segments: list[dict], max_chars: int = 12000) -> str:
+def _format_transcript_for_llm(segments: List[Dict[str, Any]], max_chars: int = 12000) -> str:
     lines = []
     for s in segments:
         minutes, seconds = divmod(int(s["start"]), 60)
@@ -115,7 +116,7 @@ def _format_transcript_for_llm(segments: list[dict], max_chars: int = 12000) -> 
     return transcript[:max_chars]
 
 
-def llm_summarize(segments: list[dict], participants: list[str], api_key: str, model: str) -> dict:
+def llm_summarize(segments: List[Dict[str, Any]], participants: List[str], api_key: str, model: str) -> Dict[str, Any]:
     import anthropic  # imported lazily so the app runs without the package configured
 
     transcript = _format_transcript_for_llm(segments)
@@ -162,11 +163,11 @@ Respond with ONLY strict JSON, no markdown fences, matching this shape exactly:
 
 
 def summarize(
-    segments: list[dict],
-    participants: list[str],
-    api_key: str | None = None,
-    model: str | None = None,
-) -> dict:
+    segments: List[Dict[str, Any]],
+    participants: List[str],
+    api_key: Optional[str] = None,
+    model: Optional[str] = None,
+) -> Dict[str, Any]:
     if api_key:
         try:
             return llm_summarize(segments, participants, api_key, model)

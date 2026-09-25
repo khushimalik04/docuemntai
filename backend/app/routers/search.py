@@ -1,4 +1,5 @@
 """Full-text-ish search across transcript segments."""
+from typing import List
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
@@ -9,7 +10,7 @@ from app.schemas import SearchHitOut
 router = APIRouter(prefix="/api")
 
 
-@router.get("/search", response_model=list[SearchHitOut])
+@router.get("/search", response_model=List[SearchHitOut])
 def search(q: str = "", db: Session = Depends(get_db)):
     # Deviation note: contract says "min 2 chars -> 422 or empty list (pick one)".
     # We return an empty list, which is friendlier for a live-search-as-you-type UI.

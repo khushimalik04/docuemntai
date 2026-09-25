@@ -21,7 +21,7 @@ async def lifespan(app: FastAPI):
     yield
 
 
-app = FastAPI(title="Fireflies Clone API", lifespan=lifespan)
+app = FastAPI(title="MeetMind API", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,

@@ -1,5 +1,6 @@
 """Pydantic v2 request/response models matching CONTRACT.md JSON shapes."""
 from datetime import datetime
+from typing import Optional, List
 
 from pydantic import BaseModel, ConfigDict
 
@@ -8,12 +9,12 @@ class ParticipantOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     id: int
     name: str
-    email: str | None
+    email: Optional[str] = None
 
 
 class SummaryOut(BaseModel):
     overview: str
-    keywords: list[str]
+    keywords: List[str]
     generated_by: str
 
 
@@ -29,9 +30,9 @@ class ActionItemOut(BaseModel):
     meeting_id: int
     text: str
     completed: bool
-    assignee: ParticipantOut | None
-    segment_id: int | None
-    start_sec: float | None
+    assignee: Optional[ParticipantOut] = None
+    segment_id: Optional[int] = None
+    start_sec: Optional[float] = None
     created_at: datetime
 
 
@@ -40,7 +41,7 @@ class SegmentOut(BaseModel):
     id: int
     idx: int
     speaker_label: str
-    speaker_participant_id: int | None
+    speaker_participant_id: Optional[int] = None
     start_sec: float
     end_sec: float
     text: str
@@ -52,8 +53,8 @@ class MeetingListItemOut(BaseModel):
     date: datetime
     duration_sec: float
     source: str
-    participants: list[ParticipantOut]
-    summary_snippet: str | None
+    participants: List[ParticipantOut]
+    summary_snippet: Optional[str] = None
     open_action_items: int
 
 
@@ -63,10 +64,10 @@ class MeetingDetailOut(BaseModel):
     date: datetime
     duration_sec: float
     source: str
-    participants: list[ParticipantOut]
-    summary: SummaryOut | None
-    chapters: list[ChapterOut]
-    action_items: list[ActionItemOut]
+    participants: List[ParticipantOut]
+    summary: Optional[SummaryOut] = None
+    chapters: List[ChapterOut]
+    action_items: List[ActionItemOut]
 
 
 class SearchHitOut(BaseModel):
@@ -83,22 +84,22 @@ class SearchHitOut(BaseModel):
 
 class MeetingCreateIn(BaseModel):
     title: str
-    date: datetime | None = None
-    participants: list[str] | None = None
+    date: Optional[datetime] = None
+    participants: Optional[List[str]] = None
     transcript_text: str
 
 
 class MeetingPatchIn(BaseModel):
-    title: str | None = None
-    participants: list[str] | None = None
+    title: Optional[str] = None
+    participants: Optional[List[str]] = None
 
 
 class ActionItemCreateIn(BaseModel):
     text: str
-    assignee_name: str | None = None
+    assignee_name: Optional[str] = None
 
 
 class ActionItemPatchIn(BaseModel):
-    text: str | None = None
-    completed: bool | None = None
-    assignee_name: str | None = None
+    text: Optional[str] = None
+    completed: Optional[bool] = None
+    assignee_name: Optional[str] = None
