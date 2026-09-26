@@ -8,8 +8,8 @@ Built as an end-to-end full-stack meeting workspace application with zero requir
 
 ## 🚀 Live Demo & Deployment
 
-- **Frontend App**: [https://meetmind.vercel.app](https://meetmind.vercel.app) *(Replace with your Vercel URL)*
-- **Backend API**: [https://meetmind-api.onrender.com](https://meetmind-api.onrender.com) *(Replace with your Render URL)*
+- **Frontend App**: [https://docuemntai.vercel.app](https://docuemntai.vercel.app)
+- **Backend API**: [https://meetmind-vb83.onrender.com](https://meetmind-vb83.onrender.com)
 - **GitHub Repository**: [https://github.com/khushimalik04/docuemntai](https://github.com/khushimalik04/docuemntai)
 
 ---
@@ -117,7 +117,7 @@ Visit **[http://localhost:3000](http://localhost:3000)** in your browser.
 1. Import your repository into [Vercel](https://vercel.com).
 2. Set **Root Directory** to `frontend`.
 3. Add Environment Variable:
-   - `NEXT_PUBLIC_API_URL`: `https://your-backend-api.onrender.com`
+   - `NEXT_PUBLIC_API_URL`: `https://meetmind-vb83.onrender.com`
 4. Click **Deploy**.
 
 ---
